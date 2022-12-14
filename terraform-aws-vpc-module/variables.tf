@@ -79,6 +79,12 @@ variable "public_subnet_tag_1" {
   type        = string
   default     = "suremdm_public_subnet_az_1a"
 }
+variable "public_subnet_tag_2" {
+  description = "Tag for public subnet"
+  type        = string
+  default     = "suremdm_public_subnet_az_1b"
+}
+
 variable "private_subnets" {
   description = "CIDR block for database subnet"
   type        = list(any)
@@ -97,6 +103,12 @@ variable "public_subnets_cidr_1" {
   default     = "192.168.1.0/24"
 }
 
+variable "public_subnets_cidr_2" {
+  description = "Cidr Blocks"
+  type        = string
+  default     = "192.168.2.0/24"
+}
+
 variable "private_subnet_tag_1" {
   description = "Tag for Private Subnet"
   type        = string
@@ -112,7 +124,7 @@ variable "private_subnet_tag_2" {
 variable "map_public_ip_on_launch" {
   description = "It will map the public ip while launching resources"
   type        = bool
-  default     = null
+  default     = true
 }
 variable "private_subnets_cidr_1" {
   description = "mention the CIDR block for database subnet"

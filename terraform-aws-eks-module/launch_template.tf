@@ -1,5 +1,5 @@
 # resource "aws_launch_template" "suredm_eks_launch_template" {
-#   name = "your_eks_launch_template"
+#   name = "suremdm_eks_launch_template"
 
 #   vpc_security_group_ids = [var.your_security_group.id, aws_eks_cluster.your-eks-cluster.vpc_config[0].cluster_security_group_id]
 
@@ -12,8 +12,8 @@
 #     }
 #   }
 
-#   image_id = "your_ami_value"
-#   instance_type = "t3.medium"
+#   image_id = "ami-04b1803f4c3d0403f"
+#   instance_type = "t3a.medium"
 #   user_data = base64encode(<<-EOF
 # MIME-Version: 1.0
 # Content-Type: multipart/mixed; boundary="==MYBOUNDARY=="

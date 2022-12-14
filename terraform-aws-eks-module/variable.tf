@@ -25,7 +25,7 @@ variable "subnet_id_1" {
 
  variable "launch_template_name" {
   type = string
-  default="" 
+  default="eks-launch_launch_template" 
  }
 
  variable "launch_template_version" {
