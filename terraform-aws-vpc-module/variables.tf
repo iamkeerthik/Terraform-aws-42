@@ -103,6 +103,12 @@ variable "private_subnet_tag_1" {
   default     = "suremdm_private_subnet_az_1a"
 }
 
+variable "private_subnet_tag_2" {
+  description = "Tag for Private Subnet"
+  type        = string
+  default     = "suremdm_private_subnet_az_1b"
+}
+
 variable "map_public_ip_on_launch" {
   description = "It will map the public ip while launching resources"
   type        = bool
@@ -112,4 +118,9 @@ variable "private_subnets_cidr_1" {
   description = "mention the CIDR block for database subnet"
   type        = string
   default     = "192.168.5.0/24"
+}
+variable "private_subnets_cidr_2" {
+  description = "mention the CIDR block for database subnet"
+  type        = string
+  default     = "192.168.6.0/24"
 }

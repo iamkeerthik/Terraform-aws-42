@@ -10,7 +10,9 @@ module "vpc" {
 
 module "eks" {
   source = "../terraform-aws-eks-module"
-  
+  depends_on = [
+    module.vpc
+  ]
 }
 
 # module "alb" {
