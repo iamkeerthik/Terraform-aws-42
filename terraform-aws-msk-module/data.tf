@@ -51,11 +51,7 @@ data "aws_security_group" "node-security" {
 
 }
 
-data "aws_iam_role" "cluster_role" {
-  name = "suremdm-eks-iam-role"
+data "aws_iam_role" "msk_role" {
+  name = "msk_role"
 }
 
-data "aws_iam_role" "node_role" {
-  name = "eks-node-group-role"
-  
-}

@@ -6,9 +6,11 @@ data "aws_availability_zone" "az" {
   all_availability_zones = false
   state                  = "available"
 }
+
 data "aws_key_pair" "key" {
   key_name = "keerthik"
 }
+
 data "aws_vpc" "vpc_available" {
   filter {
     name   = "tag:Name"

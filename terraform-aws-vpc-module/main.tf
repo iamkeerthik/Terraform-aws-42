@@ -132,57 +132,57 @@ resource "aws_route_table_association" "public_route_table_association_1" {
   subnet_id      = aws_subnet.public_subnet_1.id
   route_table_id = aws_route_table.public_route_table.id
 }
-# resource "aws_route_table_association" "public_route_table_association_2" {
-#   subnet_id      = aws_subnet.public_subnet_2.id
-#   route_table_id = aws_route_table.public_route_table.id
-# }
+resource "aws_route_table_association" "public_route_table_association_2" {
+  subnet_id      = aws_subnet.public_subnet_2.id
+  route_table_id = aws_route_table.public_route_table.id
+}
 resource "aws_route_table_association" "private_route_table_association_1" {
   subnet_id      = aws_subnet.private_subnet_1.id
   route_table_id = aws_route_table.private_route_table.id
 }
-# resource "aws_route_table_association" "database_route_table_association_2" {
-#   subnet_id      = aws_subnet.database_subnet_2.id
-#   route_table_id = aws_route_table.database_route_table.id
-# }
+resource "aws_route_table_association" "private_route_table_association_2" {
+  subnet_id      = aws_subnet.private_subnet_2.id
+  route_table_id = aws_route_table.private_route_table.id
+}
 
-###############################################################################
+##############################################################################
 # Security Group
-###############################################################################
+##############################################################################
 
-# resource "aws_security_group" "sg" {
-#   name        = "suremdm_security_group"
-#   description = "Allow all inbound traffic"
-#   vpc_id      = aws_vpc.myVPC.id
+resource "aws_security_group" "sg" {
+  name        = "suremdm_security_group"
+  description = "Allow all inbound traffic"
+  vpc_id      = aws_vpc.myVPC.id
 
-#   ingress = [
-#     {
-#       description      = "All traffic"
-#       from_port        = 0    # All ports
-#       to_port          = 0    # All Ports
-#       protocol         = "-1" # All traffic
-#       cidr_blocks      = ["0.0.0.0/0"]
-#       ipv6_cidr_blocks = null
-#       prefix_list_ids  = null
-#       security_groups  = null
-#       self             = null
-#     }
-#   ]
+  ingress = [
+    {
+      description      = "All traffic"
+      from_port        = 0    # All ports
+      to_port          = 0    # All Ports
+      protocol         = "-1" # All traffic
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = null
+      prefix_list_ids  = null
+      security_groups  = null
+      self             = null
+    }
+  ]
 
-#   egress = [
-#     {
-#       from_port        = 0
-#       to_port          = 0
-#       protocol         = "-1"
-#       cidr_blocks      = ["0.0.0.0/0"]
-#       ipv6_cidr_blocks = ["::/0"]
-#       description      = "Outbound rule"
-#       prefix_list_ids  = null
-#       security_groups  = null
-#       self             = null
-#     }
-#   ]
+  egress = [
+    {
+      from_port        = 0
+      to_port          = 0
+      protocol         = "-1"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
+      description      = "Outbound rule"
+      prefix_list_ids  = null
+      security_groups  = null
+      self             = null
+    }
+  ]
 
-#   tags = {
-#     Name = "suremdm_security_group"
-#   }
-# }
+  tags = {
+    Name = "suremdm_security_group"
+  }
+}

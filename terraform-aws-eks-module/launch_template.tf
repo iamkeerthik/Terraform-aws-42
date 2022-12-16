@@ -1,35 +1,34 @@
-# resource "aws_launch_template" "suredm_eks_launch_template" {
-#   name = "suremdm_eks_launch_template"
+# resource "aws_launch_template" "node_group_launch_template" {
+#   name = "node-group-launch-template"
 
-#   vpc_security_group_ids = [var.your_security_group.id, aws_eks_cluster.your-eks-cluster.vpc_config[0].cluster_security_group_id]
+#   image_id      = "ami-03d748ca3502b6799"
+#   instance_type = "t3a.medium"
+
+#   user_data = base64encode(<<EOF
+# #!/bin/bash
+# echo ECS_CLUSTER=${aws_eks_cluster.suremdm-eks.name} >> /etc/ecs/ecs.config
+# EOF
+# )
+
+#   iam_instance_profile {
+#     name = "node-group-instance-profile"
+#   }
+
+#   key_name = "keerthik"
 
 #   block_device_mappings {
 #     device_name = "/dev/xvda"
-
 #     ebs {
 #       volume_size = 20
 #       volume_type = "gp2"
+#       delete_on_termination = true
 #     }
 #   }
 
-#   image_id = "ami-04b1803f4c3d0403f"
-#   instance_type = "t3a.medium"
-#   user_data = base64encode(<<-EOF
-# MIME-Version: 1.0
-# Content-Type: multipart/mixed; boundary="==MYBOUNDARY=="
-# --==MYBOUNDARY==
-# Content-Type: text/x-shellscript; charset="us-ascii"
-# #!/bin/bash
-# /etc/eks/bootstrap.sh your-eks-cluster
-# --==MYBOUNDARY==--\
-#   EOF
-#   )
-
 #   tag_specifications {
 #     resource_type = "instance"
-
 #     tags = {
-#       Name = "EKS-MANAGED-NODE"
+#       Name = "node-group-instance"
 #     }
 #   }
 # }
