@@ -91,6 +91,14 @@ resource "aws_security_group" "aws-pluto-sg" {
     description = "Allow incoming RDP connections"
   }
 
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    security_group_id   = "${data.aws_security_group.node-security.id}"
+    source_security_group_id = "eks-sg"
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -103,3 +111,5 @@ resource "aws_security_group" "aws-pluto-sg" {
     Environment = var.app_environment
   }
 }
+
+

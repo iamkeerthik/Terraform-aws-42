@@ -29,10 +29,9 @@ variable "asg_min_size" {
 
 variable "launch_template_id" {
   type    = string
-  default = "lt-0b500d9daf08ae01f"
+  default = "lt-012c374286117dea0"
 }
 
 variable "launch_template_version" {
-  type    = number
-  default = 1
+  default = 2
 }

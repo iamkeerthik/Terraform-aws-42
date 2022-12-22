@@ -42,7 +42,7 @@ data "aws_subnet" "public_2" {
   }
 }
 
-data "aws_security_group" "node-security" {
+data "aws_security_group" "eks-security" {
   vpc_id = data.aws_vpc.vpc_available.id
   filter {
     name   = "tag:Name"
@@ -52,7 +52,7 @@ data "aws_security_group" "node-security" {
 }
 
 data "aws_iam_role" "cluster_role" {
-  name = "suremdm-eks-iam-role"
+  name = "suremdm-eks-cluster-role"
 }
 
 data "aws_iam_role" "node_role" {

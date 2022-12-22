@@ -16,19 +16,10 @@ module "eks" {
   ]
 }
 
-# module "alb" {
-#   source     = "../terraform-aws-alb-module"
-#   subnet_ids = [module.vpc.public_subnet_1, module.vpc.public_subnet_2]
+# module "MSK" {
+#   source = "../terraform-aws-msk-module"
 #   depends_on = [
 #     module.vpc
 #   ]
-
-# }
-
-# terraform {
-#   backend "s3" {
-#     bucket = "mybucket"
-#     key    = "path/to/my/key"
-#     region = "us-east-1"
-#   }
+  
 # }

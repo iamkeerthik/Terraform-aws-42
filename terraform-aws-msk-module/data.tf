@@ -51,7 +51,7 @@ data "aws_security_group" "node-security" {
 
 }
 
-data "aws_iam_role" "msk_role" {
-  name = "msk_role"
-}
+# data "aws_iam_role" "msk_role" {
+#   name = "msk_role"
+# }
 

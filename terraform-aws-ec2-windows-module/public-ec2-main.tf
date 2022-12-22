@@ -50,7 +50,7 @@ resource "aws_instance" "public-server" {
   }
   
   tags = {
-    Name        = "${lower(var.app_name)}-${var.app_environment}-pluto-server"
+    Name        = "${lower(var.app_name)}-${var.app_environment}-public-server"
     Environment = var.app_environment
   }
 }

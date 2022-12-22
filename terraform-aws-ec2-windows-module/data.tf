@@ -34,3 +34,11 @@ data "aws_subnet" "public" {
     values = ["suremdm_public_subnet_az_1a"]
   }
 }
+
+data "aws_security_group" "eks-security" {
+  vpc_id = data.aws_vpc.vpc_available.id
+  filter {
+    name   = "tag:Name"
+    values = ["suremdm_security_group"]
+  }
+}

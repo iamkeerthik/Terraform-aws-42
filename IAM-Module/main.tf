@@ -1,6 +1,6 @@
 #EKS_CLUSTER_ROLE
-resource "aws_iam_role" "eks-iam-role" {
-  name = "suremdm-eks-iam-role"
+resource "aws_iam_role" "eks-cluster-role" {
+  name = "suremdm-eks-cluster-role"
 
   path = "/"
 
@@ -23,12 +23,16 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.eks-iam-role.name
+  role       = aws_iam_role.eks-cluster-role.name
 }
-resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EKS" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.eks-iam-role.name
-}
+# resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EKS" {
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+#   role       = aws_iam_role.eks-iam-role.name
+# }
+# resource "aws_iam_role_policy_attachment" "AmazonEKSServicePolicy" {
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
+#   role       = aws_iam_role.eks-iam-role.name
+# }
 
 #WORKER_NODE_ROLE
 resource "aws_iam_role" "workernodes" {
@@ -44,6 +48,39 @@ resource "aws_iam_role" "workernodes" {
     }]
     Version = "2012-10-17"
   })
+}
+
+# Create an IAM policy for the node group to use launch templates
+resource "aws_iam_policy" "eks_node_group_launch_template_policy" {
+  name        = "eks_node_group_launch_template_policy"
+  description = "Policy for the EKS node group to use launch templates"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:CreateLaunchTemplate",
+        "ec2:DescribeLaunchTemplates",
+        "ec2:DeleteLaunchTemplate",
+        "ec2:CreateLaunchTemplateVersion",
+        "ec2:ModifyLaunchTemplate",
+        "ec2:DescribeLaunchTemplateVersions"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:PassRole"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+EOF
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
@@ -66,6 +103,10 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
   role       = aws_iam_role.workernodes.name
 }
 
+resource "aws_iam_role_policy_attachment" "eks_node_group_launch_template_policy_attachment" {
+  policy_arn = aws_iam_policy.eks_node_group_launch_template_policy.arn
+  role       = aws_iam_role.workernodes.name
+}
 
 # Create an IAM role for the MSK cluster
 resource "aws_iam_role" "msk_role" {
