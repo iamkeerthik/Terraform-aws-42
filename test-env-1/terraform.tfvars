@@ -1,5 +1,5 @@
 ##################______VPC________##############
-vpc_name = "Tes-VPC"
+vpc_name = "Terraform-VPC"
 # cidr                       = ""
 # igw_tag                    = ""
 # nat_tag                    = ""
@@ -35,7 +35,7 @@ key_name = "keerthik"
 
 
 #################_______EKS_________##############
- cluster_name            = "eks-cluster"
+cluster_name = "eks-cluster"
 # subnet_1             = ""
 # subnet_2             = ""
 # asg_desired_size        = ""
@@ -47,7 +47,7 @@ key_name = "keerthik"
 # endpoint_public_access  = ""
 # eks_version             = ""
 # node_group_name         = ""
- eks_instance_type       = "t3a.medium"
+eks_instance_type = "t3a.medium"
 # cluster_role_name       = ""
 # node_role_name          = ""
 

@@ -281,46 +281,46 @@ variable "node_role_name" {
 #############______MSK________#################
 
 variable "msk_cluster_name" {
-  type = string
+  type    = string
   default = "suremdm-msk"
-  
+
 }
 
-variable "kms_key" {
-    type = string
-    default = ""
-  
-}
+# variable "kms_key" {
+#     type = string
+#     default = ""
+
+# }
 variable "kafka_version" {
-  type = string
+  type    = string
   default = "2.6.0"
-  
+
 }
 
 variable "no_of_nodes" {
-  type = number
+  type    = number
   default = 2
-  
+
 }
 
 variable "kafka_intance_type" {
-  type = string
+  type    = string
   default = "kafka.t3.small"
-  
+
 }
 
 variable "environment" {
-  type = string
-  default = "dev"  
+  type    = string
+  default = "dev"
 }
 
 variable "msk_security_group_name" {
-  type = string
+  type    = string
   default = "suremdm-msk-sg"
 }
 
 # variable "msk_role" {
 #   type = string
 #   default = "msk-role"
-  
+
 # }

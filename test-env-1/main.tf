@@ -70,10 +70,14 @@ module "MSK" {
   depends_on = [
     module.vpc
   ]
-  msk_cluster_name=var.msk_cluster_name
-  kafka_version=var.kafka_version
-  no_of_nodes =var.no_of_nodes
-  kafka_intance_type=var.kafka_intance_type
-  environment=var.environment
-  msk_security_group_name=var.msk_security_group_name
+  vpc_name                = var.vpc_name
+  subnet_1                = var.subnet_1
+  subnet_2                = var.subnet_2
+  cluster_name            = var.msk_cluster_name
+  msk_cluster_name        = var.msk_cluster_name
+  kafka_version           = var.kafka_version
+  no_of_nodes             = var.no_of_nodes
+  kafka_intance_type      = var.kafka_intance_type
+  environment             = var.environment
+  msk_security_group_name = var.msk_security_group_name
 }

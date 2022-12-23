@@ -1,34 +1,50 @@
 
+resource "aws_msk_configuration" "example" {
+  name            = "example-config"
+  kafka_versions  = ["2.6.0"]
+  server_properties = <<EOF
+auto.create.topics.enable=true
+log.retention.hours=24
+EOF
+}
+
 # Create the MSK cluster
 resource "aws_msk_cluster" "my_cluster" {
   cluster_name     = var.msk_cluster_name
   kafka_version = var.kafka_version
   number_of_broker_nodes = var.no_of_nodes
-  enhanced_monitoring = "PER_BROKER"
-  # encryption_in_transit = true
-#   open_monitoring = ["prometheus"]
-#   log_retention_hours = 24
-#   iam_roles = [data.aws_iam_role.msk_role.arn]
-
+  enhanced_monitoring = "DEFAULT"
+  open_monitoring {
+    prometheus {
+      jmx_exporter {
+        enabled_in_broker = true
+      }
+      node_exporter {
+        enabled_in_broker = true
+      }
+    }
+  }
+   configuration_info {
+    arn         = aws_msk_configuration.example.arn
+    revision    = 1
+  }
 
   broker_node_group_info {
     client_subnets = [data.aws_subnet.subnet_1.id, data.aws_subnet.subnet_2.id]
     instance_type = var.kafka_intance_type
     security_groups = [aws_security_group.msk_cluster.id]
-    # az_distribution = "BROKER_STICKINESS"
-    ebs_volume_size = 20
-    
+    storage_info {
+      ebs_storage_info {
+        volume_size = 20
+      }
+    }  
   }
-
 
   encryption_info {
     encryption_in_transit {
       client_broker = "TLS"
       in_cluster = true
     }
-    # encryption_at_rest {
-    #   data_volume_kms_key_id = "${var.kms_key.id}}"
-    # }
   }
 tags = {
     Name = var.msk_cluster_name
