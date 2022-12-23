@@ -8,12 +8,17 @@ log.retention.hours=24
 EOF
 }
 
+# Create S3 Bucket for logging
+resource "aws_s3_bucket" "logs_bucket" {
+  bucket = "msk-logs-${var.msk_cluster_name}"
+}
+
 # Create the MSK cluster
 resource "aws_msk_cluster" "my_cluster" {
   cluster_name           = var.msk_cluster_name
   kafka_version          = var.kafka_version
   number_of_broker_nodes = var.no_of_nodes
-  enhanced_monitoring    = "DEFAULT"
+  enhanced_monitoring    = "PER_TOPIC_PER_BROKER" #available options PER_BROKER, DEFAULT
   open_monitoring {
     prometheus {
       jmx_exporter {
@@ -46,6 +51,17 @@ resource "aws_msk_cluster" "my_cluster" {
       in_cluster    = true
     }
   }
+
+  logging_info {
+    broker_logs {
+      s3 {
+        enabled = true
+        bucket = aws_s3_bucket.logs_bucket.bucket
+        prefix = "logs"
+      }
+    }
+  }
+
   tags = {
     Name        = var.msk_cluster_name
     Environment = var.environment
