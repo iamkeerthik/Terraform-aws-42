@@ -8,13 +8,13 @@ data "aws_availability_zone" "az" {
 }
 
 data "aws_key_pair" "key" {
-  key_name = "keerthik"
+  key_name = var.key_name
 }
 
 data "aws_vpc" "vpc_available" {
   filter {
     name   = "tag:Name"
-    values = ["Suremdm-VPC"]
+    values = [var.vpc_name]
   }
 }
 data "aws_subnet" "private" {

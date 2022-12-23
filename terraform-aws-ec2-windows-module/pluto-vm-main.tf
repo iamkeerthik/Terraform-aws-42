@@ -1,22 +1,3 @@
-###################################
-## Virtual Machine Module - Main ##
-###################################
-
-# Bootstrapping PowerShell Script
-# data "template_file" "windows-userdata" {
-#   template = <<EOF
-# <powershell>
-# # Rename Machine
-# Rename-Computer -NewName "${var.windows_instance_name}" -Force;
-
-# # Install IIS
-# Install-WindowsFeature -name Web-Server -IncludeManagementTools;
-
-# # Restart machine
-# shutdown -r -t 10;
-# </powershell>
-# EOF
-# }
 
 # Create EC2 Instance
 resource "aws_instance" "pluto-server" {
@@ -40,14 +21,14 @@ resource "aws_instance" "pluto-server" {
     encrypted             = true
   }
 
-  # extra disk
-  ebs_block_device {
-    device_name           = "/dev/xvda"
-    volume_size           = var.windows_data_volume_size
-    volume_type           = var.windows_data_volume_type
-    encrypted             = true
-    delete_on_termination = true
-  }
+  # # extra disk
+  # ebs_block_device {
+  #   device_name           = "/dev/xvda"
+  #   volume_size           = var.windows_data_volume_size
+  #   volume_type           = var.windows_data_volume_type
+  #   encrypted             = true
+  #   delete_on_termination = true
+  # }
   
   tags = {
     Name        = "${lower(var.app_name)}-${var.app_environment}-pluto-server"
@@ -55,20 +36,6 @@ resource "aws_instance" "pluto-server" {
   }
 }
 
-# # Create Elastic IP for the EC2 instance
-# resource "aws_eip" "windows-eip" {
-#   vpc  = true
-#   tags = {
-#     Name        = "${lower(var.app_name)}-${var.app_environment}-windows-eip"
-#     Environment = var.app_environment
-#   }
-# }
-
-# # Associate Elastic IP to Windows Server
-# resource "aws_eip_association" "windows-eip-association" {
-#   instance_id   = aws_instance.windows-server.id
-#   allocation_id = aws_eip.windows-eip.id
-# }
 
 # Define the security group for the Windows server
 resource "aws_security_group" "aws-pluto-sg" {
@@ -91,13 +58,13 @@ resource "aws_security_group" "aws-pluto-sg" {
     description = "Allow incoming RDP connections"
   }
 
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    security_group_id   = "${data.aws_security_group.node-security.id}"
-    source_security_group_id = "eks-sg"
-  }
+  # ingress {
+  #   from_port   = 0
+  #   to_port     = 0
+  #   protocol    = "-1"
+  #   security_group_id   = "${data.aws_security_group.node-security.id}"
+  #   source_security_group_id = "eks-sg"
+  # }
 
   egress {
     from_port   = 0

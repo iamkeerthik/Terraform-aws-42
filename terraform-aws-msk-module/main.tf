@@ -1,9 +1,9 @@
 
 # Create the MSK cluster
 resource "aws_msk_cluster" "my_cluster" {
-  cluster_name     = var.cluster_name
-  kafka_version = "2.6.0"
-  number_of_broker_nodes = 2
+  cluster_name     = var.msk_cluster_name
+  kafka_version = var.kafka_version
+  number_of_broker_nodes = var.no_of_nodes
   enhanced_monitoring = "PER_BROKER"
   # encryption_in_transit = true
 #   open_monitoring = ["prometheus"]
@@ -12,11 +12,11 @@ resource "aws_msk_cluster" "my_cluster" {
 
 
   broker_node_group_info {
-    client_subnets = [data.aws_subnet.public_1.id, data.aws_subnet.public_2.id]
-    instance_type = "kafka.m5.large"
-    security_groups = ["${aws_security_group.msk_cluster.id}"]
+    client_subnets = [data.aws_subnet.subnet_1.id, data.aws_subnet.subnet_2.id]
+    instance_type = var.kafka_intance_type
+    security_groups = [aws_security_group.msk_cluster.id]
     # az_distribution = "BROKER_STICKINESS"
-    ebs_volume_size = 100
+    ebs_volume_size = 20
     
   }
 
@@ -31,14 +31,14 @@ resource "aws_msk_cluster" "my_cluster" {
     # }
   }
 tags = {
-    Name = "suremdm-msk"
-    Environment = "dev"
+    Name = var.msk_cluster_name
+    Environment = var.environment
   }
 }
 
 # Create a security group for the MSK cluster
 resource "aws_security_group" "msk_cluster" {
-  name        = "msk-cluster"
+  name        = var.msk_security_group_name
   description = "Security group for MSK cluster"
   vpc_id      = data.aws_vpc.vpc_available.id
 

@@ -2,45 +2,28 @@
 data "aws_vpc" "vpc_available" {
   filter {
     name   = "tag:Name"
-    values = ["Suremdm-VPC"]
+    values = [var.vpc_name]
   }
 }
 
-data "aws_subnet" "private_1" {
+data "aws_subnet" "subnet_1" {
   vpc_id            = data.aws_vpc.vpc_available.id
   availability_zone = "ap-south-1a"
   filter {
     name   = "tag:Name"
-    values = ["suremdm_private_subnet_az_1a"]
+    values = [var.subnet_1]
   }
 }
 
-data "aws_subnet" "private_2" {
+data "aws_subnet" "subnet_2" {
   vpc_id            = data.aws_vpc.vpc_available.id
   availability_zone = "ap-south-1b"
   filter {
     name   = "tag:Name"
-    values = ["suremdm_private_subnet_az_1b"]
+    values = [var.subnet_2]
   }
 }
 
-data "aws_subnet" "public_1" {
-  vpc_id            = data.aws_vpc.vpc_available.id
-  availability_zone = "ap-south-1a"
-  filter {
-    name   = "tag:Name"
-    values = ["suremdm_public_subnet_az_1a"]
-  }
-}
-
-data "aws_subnet" "public_2" {
-  vpc_id            = data.aws_vpc.vpc_available.id
-  availability_zone = "ap-south-1b"
-  filter {
-    name   = "tag:Name"
-    values = ["suremdm_public_subnet_az_1b"]
-  }
-}
 
 data "aws_security_group" "eks-security" {
   vpc_id = data.aws_vpc.vpc_available.id
@@ -52,10 +35,10 @@ data "aws_security_group" "eks-security" {
 }
 
 data "aws_iam_role" "cluster_role" {
-  name = "suremdm-eks-cluster-role"
+  name = var.cluster_role_name
 }
 
 data "aws_iam_role" "node_role" {
-  name = "eks-node-group-role"
-  
+  name = var.node_role_name
+
 }

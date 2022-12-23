@@ -16,8 +16,8 @@ variable "app_environment" {
   default = "dev"
 }
 
-variable "aws_region" {
-  type = string
-  default = "ap-south-1"
+# variable "aws_region" {
+#   type = string
+#   default = "ap-south-1"
   
-}
+# }
