@@ -91,6 +91,13 @@ resource "aws_security_group" "aws-db-sg" {
     description = "Allow incoming RDP connections"
   }
 
+  # ingress {
+  #   from_port   = 0
+  #   to_port     = 0
+  #   protocol    = "-1"
+  #   security_groups = ["${data.aws_security_group.eks-security.id}"]
+  # }
+  
   egress {
     from_port   = 0
     to_port     = 0

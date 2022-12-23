@@ -62,8 +62,7 @@ resource "aws_security_group" "aws-pluto-sg" {
   #   from_port   = 0
   #   to_port     = 0
   #   protocol    = "-1"
-  #   security_group_id   = "${data.aws_security_group.node-security.id}"
-  #   source_security_group_id = "eks-sg"
+  #   security_groups = ["${data.aws_security_group.eks-security.id}"]
   # }
 
   egress {
