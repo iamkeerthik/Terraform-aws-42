@@ -41,12 +41,12 @@ variable "windows_data_volume_type" {
 
 variable "vpc_name" {
   type = string
-  
+
 }
 
 variable "key_name" {
   type = string
-  
+
 }
 # variable "windows_instance_name_1" {
 #   type        = string

@@ -131,7 +131,7 @@ EOF
 
 # Attach an IAM policy to the role to give the MSK cluster access to the necessary resources
 resource "aws_iam_policy" "msk_policy" {
-  name = "msk_policy"
+  name   = "msk_policy"
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -151,7 +151,7 @@ EOF
 }
 
 resource "aws_iam_policy_attachment" "msk_policy_attachment" {
-  name = "msk_policy_attachment"
-  roles = [aws_iam_role.msk_role.name]
+  name       = "msk_policy_attachment"
+  roles      = [aws_iam_role.msk_role.name]
   policy_arn = aws_iam_policy.msk_policy.arn
 }

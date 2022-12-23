@@ -20,18 +20,18 @@
 
 # Create EC2 Instance
 resource "aws_instance" "db-server" {
-  ami                         = data.aws_ami.windows-2016.id
-  instance_type               = var.db_instance_type
-#   iam_instance_profile        = data.aws_iam_instance_profile.instance_profile.role_name
-  key_name                    = data.aws_key_pair.key.key_name
-#   vpc_security_group_ids      = data.aws_security_groups.sg.ids
+  ami           = data.aws_ami.windows-2016.id
+  instance_type = var.db_instance_type
+  #   iam_instance_profile        = data.aws_iam_instance_profile.instance_profile.role_name
+  key_name = data.aws_key_pair.key.key_name
+  #   vpc_security_group_ids      = data.aws_security_groups.sg.ids
   vpc_security_group_ids      = [aws_security_group.aws-db-sg.id]
   subnet_id                   = data.aws_subnet.private.id
   associate_public_ip_address = var.windows_associate_public_ip_address
   source_dest_check           = false
   # key_name                    = aws_key_pair.key_pair.key_name
   # user_data                   = data.template_file.windows-userdata.rendered
-  user_data                   = file("${path.module}/userdata.ps1")
+  user_data = file("${path.module}/userdata.ps1")
   # root disk
   root_block_device {
     volume_size           = var.windows_root_volume_size
@@ -48,7 +48,7 @@ resource "aws_instance" "db-server" {
     encrypted             = true
     delete_on_termination = true
   }
-  
+
   tags = {
     Name        = "${lower(var.app_name)}-${var.app_environment}-db-server"
     Environment = var.app_environment

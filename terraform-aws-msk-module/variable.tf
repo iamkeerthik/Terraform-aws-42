@@ -6,30 +6,30 @@ variable "cluster_name" {
 # variable "kms_key" {
 #     type = string
 
-  
+
 # }
 variable "kafka_version" {
   type = string
 
-  
+
 }
 
 variable "no_of_nodes" {
   type = number
 
-  
+
 }
 
 variable "kafka_intance_type" {
   type = string
 
-  
+
 }
 
 variable "msk_cluster_name" {
   type = string
 
-  
+
 }
 variable "environment" {
   type = string
@@ -43,7 +43,7 @@ variable "msk_security_group_name" {
 # variable "msk_role" {
 #   type = string
 #   default = "msk-role"
-  
+
 # }
 
 variable "vpc_name" {
@@ -52,9 +52,9 @@ variable "vpc_name" {
 }
 
 variable "subnet_1" {
-  type    = string
+  type = string
 }
 
 variable "subnet_2" {
-  type    = string
+  type = string
 }

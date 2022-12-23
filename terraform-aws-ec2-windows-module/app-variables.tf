@@ -7,17 +7,17 @@
 variable "app_name" {
   type        = string
   description = "Application name"
-  default = "suremdm"
+  default     = "suremdm"
 }
 
 variable "app_environment" {
   type        = string
   description = "Application environment"
-  default = "dev"
+  default     = "dev"
 }
 
 # variable "aws_region" {
 #   type = string
 #   default = "ap-south-1"
-  
+
 # }
