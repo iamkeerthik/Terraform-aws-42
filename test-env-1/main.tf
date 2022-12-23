@@ -81,3 +81,13 @@ module "MSK" {
   environment             = var.environment
   msk_security_group_name = var.msk_security_group_name
 }
+
+
+terraform {
+  backend "s3" {
+    bucket = "terrafrm-state-files"
+    key    = "terraform/dev-test-env"
+    region = "eu-west-1"
+    profile = "PS"
+  }
+}
