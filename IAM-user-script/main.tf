@@ -1,3 +1,3 @@
 module "IAM" {
-  source = "../IAM-Module"
+  source = "../modules/IAM-Module"
   }

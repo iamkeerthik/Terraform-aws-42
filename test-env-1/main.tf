@@ -1,6 +1,6 @@
 
 module "vpc" {
-  source                     = "../terraform-aws-vpc-module"
+  source                     = "../modules/terraform-aws-vpc-module"
   vpc_name                   = var.vpc_name
   cidr                       = var.cidr
   igw_tag                    = var.igw_tag
@@ -24,7 +24,7 @@ module "vpc" {
 
 }
 module "ec2" {
-  source = "../terraform-aws-ec2-windows-module"
+  source = "../modules/terraform-aws-ec2-windows-module"
   depends_on = [
     module.vpc
   ]
@@ -43,7 +43,7 @@ module "ec2" {
 }
 
 module "eks" {
-  source = "../terraform-aws-eks-module"
+  source = "../modules/terraform-aws-eks-module"
   depends_on = [
     module.vpc
   ]
@@ -66,7 +66,7 @@ module "eks" {
 }
 
 module "MSK" {
-  source = "../terraform-aws-msk-module"
+  source = "../modules/terraform-aws-msk-module"
   depends_on = [
     module.vpc
   ]

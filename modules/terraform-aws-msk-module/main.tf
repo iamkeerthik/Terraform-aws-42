@@ -56,8 +56,8 @@ resource "aws_msk_cluster" "my_cluster" {
     broker_logs {
       s3 {
         enabled = true
-        bucket = aws_s3_bucket.logs_bucket.bucket
-        prefix = "logs"
+        bucket  = aws_s3_bucket.logs_bucket.bucket
+        prefix  = "logs"
       }
     }
   }
