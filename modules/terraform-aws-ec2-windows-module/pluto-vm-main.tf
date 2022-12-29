@@ -5,13 +5,10 @@ resource "aws_instance" "pluto-server" {
   instance_type = var.pluto_instance_type
   # iam_instance_profile        = data.aws_iam_instance_profile.instance_profile.role_name
   key_name = data.aws_key_pair.key.key_name
-  # vpc_security_group_ids      = data.aws_security_groups.sg.ids
   vpc_security_group_ids      = [data.aws_security_group.pluto_security_group.id]
   subnet_id                   = data.aws_subnet.private.id
   associate_public_ip_address = var.windows_associate_public_ip_address
   source_dest_check           = false
-  # key_name                    = aws_key_pair.key_pair.key_name
-  # user_data                   = data.template_file.windows-userdata.rendered
   user_data = file("${path.module}/userdata.ps1")
   # root disk
   root_block_device {

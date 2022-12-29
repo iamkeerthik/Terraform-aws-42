@@ -253,7 +253,7 @@ variable "endpoint_public_access" {
 
 variable "eks_version" {
   type    = string
-  default = "1.24"
+  default = "1.23"
 
 }
 
