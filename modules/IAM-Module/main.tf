@@ -27,7 +27,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
 }
 
 #WORKER_NODE_ROLE
-resource "aws_iam_role" "workernodes" {
+resource "aws_iam_role" "workernode_role" {
   name = "eks-node-group-role"
 
   assume_role_policy = jsonencode({
