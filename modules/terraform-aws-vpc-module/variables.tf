@@ -100,10 +100,22 @@ variable "manage_default_route_table" {
   type        = bool
 }
 
+variable "eks_sg_name" {
+  type = string
+  
+}
 
+variable "db_sg_name" {
+   type = string
+}
 
+variable "pluto_sg_name" {
+  type= string
+}
 
-
+variable "msk_sg_name" {
+  type    = string
+}
 
 
 

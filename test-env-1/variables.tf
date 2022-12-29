@@ -253,7 +253,7 @@ variable "endpoint_public_access" {
 
 variable "eks_version" {
   type    = string
-  default = "LATEST"
+  default = "1.24"
 
 }
 
@@ -293,7 +293,7 @@ variable "msk_cluster_name" {
 # }
 variable "kafka_version" {
   type    = string
-  default = "2.6.0"
+  default = "LATEST"
 
 }
 
@@ -314,9 +314,22 @@ variable "environment" {
   default = "dev"
 }
 
-variable "msk_security_group_name" {
+variable "msk_sg_name" {
   type    = string
   default = "suremdm-msk-sg"
+}
+
+variable "eks_sg_name" {
+  type = string
+  
+}
+
+variable "db_sg_name" {
+   type = string
+}
+
+variable "pluto_sg_name" {
+  type= string
 }
 
 # variable "msk_role" {

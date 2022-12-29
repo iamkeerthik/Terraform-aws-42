@@ -19,6 +19,10 @@ vpc_name = "Terraform-VPC"
 # enable_dns_support         = ""
 # enable_ipv6                = ""
 # manage_default_route_table = ""
+eks_sg_name = "EKS-sg"
+db_sg_name = "pluto-sg"
+pluto_sg_name = "db-sg"
+msk_sg_name="msk-sg"
 
 
 ###################_______EC2_____##############
@@ -58,4 +62,3 @@ eks_instance_type = "t3a.medium"
 #   no_of_nodes =""
 #   kafka_intance_type=""
 #   environment=""
-#   msk_security_group_name=""

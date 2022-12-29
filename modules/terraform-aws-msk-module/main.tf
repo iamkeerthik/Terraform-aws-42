@@ -37,7 +37,7 @@ resource "aws_msk_cluster" "my_cluster" {
   broker_node_group_info {
     client_subnets  = [data.aws_subnet.subnet_1.id, data.aws_subnet.subnet_2.id]
     instance_type   = var.kafka_intance_type
-    security_groups = [aws_security_group.msk_cluster.id]
+    security_groups = [data.aws_security_group.msk_sg.id]
     storage_info {
       ebs_storage_info {
         volume_size = 20
@@ -67,36 +67,4 @@ resource "aws_msk_cluster" "my_cluster" {
     Environment = var.environment
   }
 }
-
-# Create a security group for the MSK cluster
-resource "aws_security_group" "msk_cluster" {
-  name        = var.msk_security_group_name
-  description = "Security group for MSK cluster"
-  vpc_id      = data.aws_vpc.vpc_available.id
-
-  # Allow incoming traffic on port 9094 for Apache Kafka
-  ingress {
-    from_port   = 9094
-    to_port     = 9094
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # Allow incoming traffic on port 2181 for Apache ZooKeeper
-  ingress {
-    from_port   = 2181
-    to_port     = 2181
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-
 

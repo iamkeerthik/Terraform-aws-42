@@ -20,12 +20,12 @@
 
 # Create EC2 Instance
 resource "aws_instance" "db-server" {
-  ami           = data.aws_ami.windows-2016.id
+  ami           = data.aws_ami.windows-2019.id
   instance_type = var.db_instance_type
   #   iam_instance_profile        = data.aws_iam_instance_profile.instance_profile.role_name
   key_name = data.aws_key_pair.key.key_name
   #   vpc_security_group_ids      = data.aws_security_groups.sg.ids
-  vpc_security_group_ids      = [aws_security_group.aws-db-sg.id]
+  vpc_security_group_ids      = [data.aws_security_group.db_security_group.id]
   subnet_id                   = data.aws_subnet.private.id
   associate_public_ip_address = var.windows_associate_public_ip_address
   source_dest_check           = false
@@ -55,58 +55,4 @@ resource "aws_instance" "db-server" {
   }
 }
 
-# # Create Elastic IP for the EC2 instance
-# resource "aws_eip" "windows-eip" {
-#   vpc  = true
-#   tags = {
-#     Name        = "${lower(var.app_name)}-${var.app_environment}-windows-eip"
-#     Environment = var.app_environment
-#   }
-# }
 
-# # Associate Elastic IP to Windows Server
-# resource "aws_eip_association" "windows-eip-association" {
-#   instance_id   = aws_instance.windows-server.id
-#   allocation_id = aws_eip.windows-eip.id
-# }
-
-# Define the security group for the Windows server
-resource "aws_security_group" "aws-db-sg" {
-  name        = "${lower(var.app_name)}-${var.app_environment}-db-sg"
-  description = "Allow incoming connections"
-  vpc_id      = data.aws_vpc.vpc_available.id
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "Allow incoming HTTP connections"
-  }
-
-  ingress {
-    from_port   = 3389
-    to_port     = 3389
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "Allow incoming RDP connections"
-  }
-
-  # ingress {
-  #   from_port   = 0
-  #   to_port     = 0
-  #   protocol    = "-1"
-  #   security_groups = ["${data.aws_security_group.eks-security.id}"]
-  # }
-  
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name        = "${lower(var.app_name)}-${var.app_environment}-db-sg"
-    Environment = var.app_environment
-  }
-}

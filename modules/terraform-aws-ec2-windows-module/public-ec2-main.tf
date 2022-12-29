@@ -25,7 +25,7 @@ resource "aws_instance" "public-server" {
   # iam_instance_profile        = data.aws_iam_instance_profile.instance_profile.role_name
   key_name = data.aws_key_pair.key.key_name
   # vpc_security_group_ids      = data.aws_security_groups.sg.ids
-  vpc_security_group_ids      = [aws_security_group.aws-pluto-sg.id]
+  vpc_security_group_ids      = [data.aws_security_group.pluto_security_group.id]
   subnet_id                   = data.aws_subnet.public.id
   associate_public_ip_address = true
   source_dest_check           = false

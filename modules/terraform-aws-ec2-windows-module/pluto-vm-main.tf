@@ -6,7 +6,7 @@ resource "aws_instance" "pluto-server" {
   # iam_instance_profile        = data.aws_iam_instance_profile.instance_profile.role_name
   key_name = data.aws_key_pair.key.key_name
   # vpc_security_group_ids      = data.aws_security_groups.sg.ids
-  vpc_security_group_ids      = [aws_security_group.aws-pluto-sg.id]
+  vpc_security_group_ids      = [data.aws_security_group.pluto_security_group.id]
   subnet_id                   = data.aws_subnet.private.id
   associate_public_ip_address = var.windows_associate_public_ip_address
   source_dest_check           = false
@@ -37,45 +37,5 @@ resource "aws_instance" "pluto-server" {
 }
 
 
-# Define the security group for the Windows server
-resource "aws_security_group" "aws-pluto-sg" {
-  name        = "${lower(var.app_name)}-${var.app_environment}-pluto-sg"
-  description = "Allow incoming connections"
-  vpc_id      = data.aws_vpc.vpc_available.id
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "Allow incoming HTTP connections"
-  }
-
-  ingress {
-    from_port   = 3389
-    to_port     = 3389
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "Allow incoming RDP connections"
-  }
-
-  # ingress {
-  #   from_port   = 0
-  #   to_port     = 0
-  #   protocol    = "-1"
-  #   security_groups = ["${data.aws_security_group.eks-security.id}"]
-  # }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name        = "${lower(var.app_name)}-${var.app_environment}-pluto-sg"
-    Environment = var.app_environment
-  }
-}
 
 

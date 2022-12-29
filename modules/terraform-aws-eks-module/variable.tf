@@ -32,7 +32,6 @@ variable "launch_template_id" {
 }
 
 variable "launch_template_version" {
-  default = 2
 }
 
 variable "endpoint_private_access" {
@@ -45,8 +44,7 @@ variable "endpoint_public_access" {
 }
 
 variable "eks_version" {
-  type = string
-
+  
 }
 
 variable "node_group_name" {
@@ -68,4 +66,9 @@ variable "node_role_name" {
 variable "vpc_name" {
   type = string
 
+}
+
+variable "eks_sg_name" {
+  type = string
+  
 }

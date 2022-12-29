@@ -25,11 +25,11 @@ data "aws_subnet" "subnet_2" {
 }
 
 
-data "aws_security_group" "eks-security" {
+data "aws_security_group" "msk_sg" {
   vpc_id = data.aws_vpc.vpc_available.id
   filter {
     name   = "tag:Name"
-    values = ["suremdm_security_group"]
+    values = [var.msk_sg_name]
   }
 
 }

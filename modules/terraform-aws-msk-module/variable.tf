@@ -36,8 +36,9 @@ variable "environment" {
 
 }
 
-variable "msk_security_group_name" {
-  type = string
+variable "msk_sg_name" {
+  type    = string
+ 
 }
 
 # variable "msk_role" {
