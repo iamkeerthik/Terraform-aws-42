@@ -233,11 +233,10 @@ variable "asg_min_size" {
 
 variable "launch_template_id" {
   type    = string
-  default = "lt-012c374286117dea0"
 }
 
 variable "launch_template_version" {
-  default = 2
+ 
 }
 
 variable "endpoint_private_access" {
@@ -293,7 +292,7 @@ variable "msk_cluster_name" {
 # }
 variable "kafka_version" {
   type    = string
-  default = "LATEST"
+ 
 
 }
 
@@ -321,17 +320,20 @@ variable "msk_sg_name" {
 
 variable "eks_sg_name" {
   type = string
-  
+
 }
 
 variable "db_sg_name" {
-   type = string
+  type = string
 }
 
 variable "pluto_sg_name" {
-  type= string
+  type = string
 }
 
+variable "volume_size" {
+  type = number
+}
 # variable "msk_role" {
 #   type = string
 #   default = "msk-role"

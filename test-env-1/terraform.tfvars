@@ -19,10 +19,10 @@ vpc_name = "Terraform-VPC"
 # enable_dns_support         = ""
 # enable_ipv6                = ""
 # manage_default_route_table = ""
-eks_sg_name = "EKS-sg"
-db_sg_name = "pluto-sg"
-pluto_sg_name = "db-sg"
-msk_sg_name="msk-sg"
+eks_sg_name   = "EKS-sg"
+db_sg_name    = "db-sg"
+pluto_sg_name = "pluto-sg"
+msk_sg_name   = "msk-sg"
 
 
 ###################_______EC2_____##############
@@ -45,20 +45,21 @@ cluster_name = "eks-cluster"
 # asg_desired_size        = ""
 # asg_max_size            = ""
 # asg_min_size            = ""
-# launch_template_id      = ""
-# launch_template_version = ""
+launch_template_id      = "lt-03fbea4b65e2a13fe"
+launch_template_version = 1
 # endpoint_private_access = ""
 # endpoint_public_access  = ""
-# eks_version             = ""
-node_group_name         = "eks-node-group"
-eks_instance_type = "t3a.medium"
+eks_version             = "1.23"
+node_group_name   = "eks-node-group"
+eks_instance_type = "t2.micro"
 # cluster_role_name       = ""
 # node_role_name          = ""
 
 
 ##################__________MSK_________#################
 #   msk_cluster_name=""
-#   kafka_version=""
+  kafka_version="2.6.2"
 #   no_of_nodes =""
 #   kafka_intance_type=""
 #   environment=""
+volume_size = 20

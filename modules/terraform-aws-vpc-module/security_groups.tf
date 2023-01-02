@@ -139,6 +139,9 @@ resource "aws_security_group" "msk_cluster" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+    Name        = var.msk_sg_name
+  }
 }
 
 ############# Traffic between SG #############################

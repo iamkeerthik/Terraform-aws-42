@@ -21,32 +21,32 @@ module "vpc" {
   enable_dns_support         = var.enable_dns_support
   enable_ipv6                = var.enable_ipv6
   manage_default_route_table = var.manage_default_route_table
-  eks_sg_name = var.eks_sg_name
-  db_sg_name = var.db_sg_name
-  pluto_sg_name = var.pluto_sg_name
-  msk_sg_name = var.msk_sg_name
+  eks_sg_name                = var.eks_sg_name
+  db_sg_name                 = var.db_sg_name
+  pluto_sg_name              = var.pluto_sg_name
+  msk_sg_name                = var.msk_sg_name
 }
 
-# module "ec2" {
-#   source = "../modules/terraform-aws-ec2-windows-module"
-#   depends_on = [
-#     module.vpc
-#   ]
-#   vpc_name                            = var.vpc_name
-#   key_name                            = var.key_name
-#   app_name                            = var.app_name
-#   app_environment                     = var.app_environment
-#   pluto_instance_type                 = var.pluto_instance_type
-#   db_instance_type                    = var.db_instance_type
-#   pluto_sg_name = var.pluto_sg_name
-#   db_sg_name = var.db_sg_name
-#   windows_associate_public_ip_address = var.windows_associate_public_ip_address
-#   windows_root_volume_size            = var.windows_root_volume_size
-#   windows_data_volume_size            = var.windows_data_volume_size
-#   windows_root_volume_type            = var.windows_root_volume_type
-#   windows_data_volume_type            = var.windows_data_volume_type
+module "ec2" {
+  source = "../modules/terraform-aws-ec2-windows-module"
+  depends_on = [
+    module.vpc
+  ]
+  vpc_name                            = var.vpc_name
+  key_name                            = var.key_name
+  app_name                            = var.app_name
+  app_environment                     = var.app_environment
+  pluto_instance_type                 = var.pluto_instance_type
+  db_instance_type                    = var.db_instance_type
+  pluto_sg_name                       = var.pluto_sg_name
+  db_sg_name                          = var.db_sg_name
+  windows_associate_public_ip_address = var.windows_associate_public_ip_address
+  windows_root_volume_size            = var.windows_root_volume_size
+  windows_data_volume_size            = var.windows_data_volume_size
+  windows_root_volume_type            = var.windows_root_volume_type
+  windows_data_volume_type            = var.windows_data_volume_type
 
-# }
+}
 
 module "eks" {
   source = "../modules/terraform-aws-eks-module"
@@ -69,32 +69,33 @@ module "eks" {
   eks_instance_type       = var.eks_instance_type
   cluster_role_name       = var.cluster_role_name
   node_role_name          = var.node_role_name
-  eks_sg_name =  var.eks_sg_name
+  eks_sg_name             = var.eks_sg_name
 }
 
-# module "MSK" {
-#   source = "../modules/terraform-aws-msk-module"
-#   depends_on = [
-#     module.vpc
-#   ]
-#   vpc_name                = var.vpc_name
-#   subnet_1                = var.subnet_1
-#   subnet_2                = var.subnet_2
-#   cluster_name            = var.msk_cluster_name
-#   msk_cluster_name        = var.msk_cluster_name
-#   kafka_version           = var.kafka_version
-#   no_of_nodes             = var.no_of_nodes
-#   kafka_intance_type      = var.kafka_intance_type
-#   environment             = var.environment
-#   msk_sg_name = var.msk_sg_name
-# }
+module "MSK" {
+  source = "../modules/terraform-aws-msk-module"
+  depends_on = [
+    module.vpc
+  ]
+  vpc_name           = var.vpc_name
+  subnet_1           = var.subnet_1
+  subnet_2           = var.subnet_2
+  cluster_name       = var.msk_cluster_name
+  volume_size        = var.volume_size
+  msk_cluster_name   = var.msk_cluster_name
+  kafka_version      = var.kafka_version
+  no_of_nodes        = var.no_of_nodes
+  kafka_intance_type = var.kafka_intance_type
+  environment        = var.environment
+  msk_sg_name        = var.msk_sg_name
+}
 
 
 terraform {
   backend "s3" {
-    bucket = "terrafrm-state-files"
-    key    = "terraform/dev-test-env"
-    region = "eu-west-1"
+    bucket  = "terrafrm-state-files"
+    key     = "terraform/dev-test-env"
+    region  = "eu-west-1"
     profile = "PS"
   }
 }

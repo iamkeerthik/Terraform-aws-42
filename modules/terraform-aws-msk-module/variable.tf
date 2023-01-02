@@ -26,6 +26,10 @@ variable "kafka_intance_type" {
 
 }
 
+variable "volume_size" {
+  type = number
+}
+
 variable "msk_cluster_name" {
   type = string
 

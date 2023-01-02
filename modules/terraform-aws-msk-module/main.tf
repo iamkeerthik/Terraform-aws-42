@@ -40,7 +40,7 @@ resource "aws_msk_cluster" "my_cluster" {
     security_groups = [data.aws_security_group.msk_sg.id]
     storage_info {
       ebs_storage_info {
-        volume_size = 20
+        volume_size = var.volume_size
       }
     }
   }
