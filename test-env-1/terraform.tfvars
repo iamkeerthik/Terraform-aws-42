@@ -73,7 +73,6 @@ sg_rules = [
 ###################_______EC2_____##############
 app_name = "test123"
 key_name = "keerthik"
-# app_environment                     = ""
 # pluto_instance_type                 = ""
 # db_instance_type                    = ""
 # windows_associate_public_ip_address = true

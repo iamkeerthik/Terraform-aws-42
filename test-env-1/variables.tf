@@ -135,12 +135,6 @@ variable "app_name" {
   default     = "suremdm"
 }
 
-variable "app_environment" {
-  type        = string
-  description = "Application environment"
-  default     = "dev"
-}
-
 variable "pluto_instance_type" {
   type        = string
   description = "EC2 instance type for pluto Server"
