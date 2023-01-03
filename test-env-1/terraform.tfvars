@@ -27,44 +27,44 @@ msk_sg_name   = "msk-sg"
 ####################SG Rules####################
 sg_rules = [
   {
-    description = "http"
-    cidr_block       = "10.0.0.0/24"
-    from_port        = 80
-    protocol         = "tcp"
-    security_group   = "EKS-sg"
-    to_port          = 80
+    description    = "http"
+    cidr_block     = "10.0.0.0/24"
+    from_port      = 80
+    protocol       = "tcp"
+    security_group = "EKS-sg"
+    to_port        = 80
   },
   {
-    description = "ssh"
-    cidr_block       = "10.0.1.0/24"
-    from_port        = 22
-    protocol         = "tcp"
-    security_group   = "EKS-sg"
-    to_port          = 22
-  },
-    {
-    description = "rdp"
-    cidr_block       = "0.0.0.0/0"
-    from_port        = 3389
-    protocol         = "tcp"
-    security_group   = "db-sg"
-    to_port          = 3389
-  },
-    {
-    description = "apache_kafka"
-    cidr_block       = "0.0.0.0/0"
-    from_port        = 9094
-    protocol         = "tcp"
-    security_group   = "msk-sg"
-    to_port          = 9094
+    description    = "ssh"
+    cidr_block     = "10.0.1.0/24"
+    from_port      = 22
+    protocol       = "tcp"
+    security_group = "EKS-sg"
+    to_port        = 22
   },
   {
-    description = "apache_zookeeper"
-    cidr_block       = "0.0.0.0/0"
-    from_port        = 2181
-    protocol         = "tcp"
-    security_group   = "msk-sg"
-    to_port          = 2181
+    description    = "rdp"
+    cidr_block     = "0.0.0.0/0"
+    from_port      = 3389
+    protocol       = "tcp"
+    security_group = "db-sg"
+    to_port        = 3389
+  },
+  {
+    description    = "apache_kafka"
+    cidr_block     = "0.0.0.0/0"
+    from_port      = 9094
+    protocol       = "tcp"
+    security_group = "msk-sg"
+    to_port        = 9094
+  },
+  {
+    description    = "apache_zookeeper"
+    cidr_block     = "0.0.0.0/0"
+    from_port      = 2181
+    protocol       = "tcp"
+    security_group = "msk-sg"
+    to_port        = 2181
   },
 ]
 
@@ -93,7 +93,7 @@ launch_template_id      = "lt-03fbea4b65e2a13fe"
 launch_template_version = 1
 # endpoint_private_access = ""
 # endpoint_public_access  = ""
-eks_version             = "1.23"
+eks_version       = "1.23"
 node_group_name   = "eks-node-group"
 eks_instance_type = "t2.micro"
 # cluster_role_name       = ""
@@ -102,7 +102,7 @@ eks_instance_type = "t2.micro"
 
 ##################__________MSK_________#################
 #   msk_cluster_name=""
-  kafka_version="2.6.2"
+kafka_version = "2.6.2"
 #   no_of_nodes =""
 #   kafka_intance_type=""
 #   environment=""

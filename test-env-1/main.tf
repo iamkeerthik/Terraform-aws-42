@@ -25,7 +25,7 @@ module "vpc" {
   db_sg_name                 = var.db_sg_name
   pluto_sg_name              = var.pluto_sg_name
   msk_sg_name                = var.msk_sg_name
-  sg_rules = var.sg_rules
+  sg_rules                   = var.sg_rules
 }
 
 module "ec2" {
@@ -46,8 +46,8 @@ module "ec2" {
   windows_data_volume_size            = var.windows_data_volume_size
   windows_root_volume_type            = var.windows_root_volume_type
   windows_data_volume_type            = var.windows_data_volume_type
-  pluto_user_data = file("pluto-userdata.ps1")
-  db_user_data = file("db-userdata.ps1")
+  pluto_user_data                     = file("pluto-userdata.ps1")
+  db_user_data                        = file("db-userdata.ps1")
 
 }
 

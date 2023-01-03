@@ -232,11 +232,11 @@ variable "asg_min_size" {
 }
 
 variable "launch_template_id" {
-  type    = string
+  type = string
 }
 
 variable "launch_template_version" {
- 
+
 }
 
 variable "endpoint_private_access" {
@@ -291,8 +291,8 @@ variable "msk_cluster_name" {
 
 # }
 variable "kafka_version" {
-  type    = string
- 
+  type = string
+
 
 }
 
@@ -343,23 +343,23 @@ variable "volume_size" {
 
 variable "sg_rules" {
   type = list(object({
-    description = string,
-    cidr_block       = string,
-    from_port        = number,
-    protocol         = string,
-    security_group   = string,
-    to_port          = number,
+    description    = string,
+    cidr_block     = string,
+    from_port      = number,
+    protocol       = string,
+    security_group = string,
+    to_port        = number,
   }))
 
 
   default = [
     {
-      description = "http"
-      cidr_block       = "0.0.0.0/0"
-      from_port        = 80
-      protocol         = "tcp"
-      security_group   = ""
-      to_port          = 80
+      description    = "http"
+      cidr_block     = "0.0.0.0/0"
+      from_port      = 80
+      protocol       = "tcp"
+      security_group = ""
+      to_port        = 80
     },
   ]
 }
