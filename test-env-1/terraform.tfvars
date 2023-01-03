@@ -43,12 +43,28 @@ sg_rules = [
     to_port          = 22
   },
     {
-    description = "ssh"
-    cidr_block       = "10.0.1.0/24"
-    from_port        = 22
+    description = "rdp"
+    cidr_block       = "0.0.0.0/0"
+    from_port        = 3389
     protocol         = "tcp"
     security_group   = "db-sg"
-    to_port          = 22
+    to_port          = 3389
+  },
+    {
+    description = "apache_kafka"
+    cidr_block       = "0.0.0.0/0"
+    from_port        = 9094
+    protocol         = "tcp"
+    security_group   = "msk-sg"
+    to_port          = 9094
+  },
+  {
+    description = "apache_zookeeper"
+    cidr_block       = "0.0.0.0/0"
+    from_port        = 2181
+    protocol         = "tcp"
+    security_group   = "msk-sg"
+    to_port          = 2181
   },
 ]
 
@@ -65,7 +81,6 @@ key_name = "keerthik"
 # windows_root_volume_type            = "gp2"
 # windows_data_volume_size            = 10
 # windows_data_volume_type            = "gp2"
-
 
 #################_______EKS_________##############
 cluster_name = "eks-cluster"

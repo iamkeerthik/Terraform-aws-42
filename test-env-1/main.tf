@@ -28,26 +28,28 @@ module "vpc" {
   sg_rules = var.sg_rules
 }
 
-# module "ec2" {
-#   source = "../modules/terraform-aws-ec2-windows-module"
-#   depends_on = [
-#     module.vpc
-#   ]
-#   vpc_name                            = var.vpc_name
-#   key_name                            = var.key_name
-#   app_name                            = var.app_name
-#   app_environment                     = var.app_environment
-#   pluto_instance_type                 = var.pluto_instance_type
-#   db_instance_type                    = var.db_instance_type
-#   pluto_sg_name                       = var.pluto_sg_name
-#   db_sg_name                          = var.db_sg_name
-#   windows_associate_public_ip_address = var.windows_associate_public_ip_address
-#   windows_root_volume_size            = var.windows_root_volume_size
-#   windows_data_volume_size            = var.windows_data_volume_size
-#   windows_root_volume_type            = var.windows_root_volume_type
-#   windows_data_volume_type            = var.windows_data_volume_type
+module "ec2" {
+  source = "../modules/terraform-aws-ec2-windows-module"
+  depends_on = [
+    module.vpc
+  ]
+  vpc_name                            = var.vpc_name
+  key_name                            = var.key_name
+  app_name                            = var.app_name
+  app_environment                     = var.app_environment
+  pluto_instance_type                 = var.pluto_instance_type
+  db_instance_type                    = var.db_instance_type
+  pluto_sg_name                       = var.pluto_sg_name
+  db_sg_name                          = var.db_sg_name
+  windows_associate_public_ip_address = var.windows_associate_public_ip_address
+  windows_root_volume_size            = var.windows_root_volume_size
+  windows_data_volume_size            = var.windows_data_volume_size
+  windows_root_volume_type            = var.windows_root_volume_type
+  windows_data_volume_type            = var.windows_data_volume_type
+  pluto_user_data = file("pluto-userdata.ps1")
+  db_user_data = file("db-userdata.ps1")
 
-# }
+}
 
 # module "eks" {
 #   source = "../modules/terraform-aws-eks-module"
