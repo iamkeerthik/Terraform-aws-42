@@ -1,10 +1,11 @@
 # data "aws_iam_instance_profile" "instance_profile" {
 #   name = "MyEC2SSMRole"
 # }
-data "aws_availability_zone" "az" {
-  name                   = "ap-south-1a"
-  all_availability_zones = false
-  state                  = "available"
+################################################################################
+# Availability Zones list out
+################################################################################
+data "aws_availability_zones" "available_1" {
+  state = "available"
 }
 
 data "aws_key_pair" "key" {
@@ -19,19 +20,19 @@ data "aws_vpc" "vpc_available" {
 }
 data "aws_subnet" "private" {
   vpc_id            = data.aws_vpc.vpc_available.id
-  availability_zone = "ap-south-1a"
+  availability_zone = data.aws_availability_zones.available_1.names[0]
   filter {
     name   = "tag:Name"
-    values = ["suremdm_private_subnet_az_1a"]
+    values = [var.private_subnet_tag_1]
   }
 }
 
 data "aws_subnet" "public" {
   vpc_id            = data.aws_vpc.vpc_available.id
-  availability_zone = "ap-south-1a"
+  availability_zone = data.aws_availability_zones.available_1.names[0]
   filter {
     name   = "tag:Name"
-    values = ["suremdm_public_subnet_az_1a"]
+    values = [var.public_subnet_tag_1]
   }
 }
 

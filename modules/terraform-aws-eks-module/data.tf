@@ -1,4 +1,8 @@
 
+data "aws_availability_zones" "available_1" {
+  state = "available"
+}
+
 data "aws_vpc" "vpc_available" {
   filter {
     name   = "tag:Name"
@@ -8,7 +12,7 @@ data "aws_vpc" "vpc_available" {
 
 data "aws_subnet" "subnet_1" {
   vpc_id            = data.aws_vpc.vpc_available.id
-  availability_zone = "ap-south-1a"
+  availability_zone = data.aws_availability_zones.available_1.names[0]
   filter {
     name   = "tag:Name"
     values = [var.subnet_1]
@@ -17,7 +21,7 @@ data "aws_subnet" "subnet_1" {
 
 data "aws_subnet" "subnet_2" {
   vpc_id            = data.aws_vpc.vpc_available.id
-  availability_zone = "ap-south-1b"
+  availability_zone = data.aws_availability_zones.available_1.names[1]
   filter {
     name   = "tag:Name"
     values = [var.subnet_2]

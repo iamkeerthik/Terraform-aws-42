@@ -2,22 +2,6 @@
 ## Virtual Machine Module - Main ##
 ###################################
 
-# Bootstrapping PowerShell Script
-# data "template_file" "windows-userdata" {
-#   template = <<EOF
-# <powershell>
-# # Rename Machine
-# Rename-Computer -NewName "${var.windows_instance_name}" -Force;
-
-# # Install IIS
-# Install-WindowsFeature -name Web-Server -IncludeManagementTools;
-
-# # Restart machine
-# shutdown -r -t 10;
-# </powershell>
-# EOF
-# }
-
 # Create EC2 Instance
 resource "aws_instance" "db-server" {
   ami           = data.aws_ami.windows-2019.id
@@ -48,8 +32,7 @@ resource "aws_instance" "db-server" {
   }
 
   tags = {
-    Name        = "${lower(var.app_name)}-${var.app_environment}-db-server"
-    Environment = var.app_environment
+    Name = "${lower(var.app_name)}-db-server"
   }
 }
 

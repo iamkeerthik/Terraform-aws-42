@@ -64,6 +64,21 @@ variable "pluto_user_data" {
 variable "db_user_data" {
   type = string
 }
+
+variable "private_subnet_tag_1" {
+  description = "Tag for Private Subnet"
+  type        = string
+}
+
+variable "private_subnet_tag_2" {
+  description = "Tag for Private Subnet"
+  type        = string
+}
+
+variable "public_subnet_tag_1" {
+  description = "Tag for public subnet"
+  type        = string
+}
 # variable "windows_instance_name_1" {
 #   type        = string
 #   description = "EC2 instance name for Windows Server"

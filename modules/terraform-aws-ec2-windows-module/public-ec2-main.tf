@@ -50,8 +50,8 @@ resource "aws_instance" "public-server" {
   }
 
   tags = {
-    Name        = "${lower(var.app_name)}-${var.app_environment}-public-server"
-    Environment = var.app_environment
+    Name = "${lower(var.app_name)}-public-server"
+
   }
 }
 
@@ -72,7 +72,7 @@ resource "aws_instance" "public-server" {
 
 # Define the security group for the Windows server
 resource "aws_security_group" "aws-public-sg" {
-  name        = "${lower(var.app_name)}-${var.app_environment}-public-sg"
+  name        = "${lower(var.app_name)}-public-sg"
   description = "Allow incoming connections"
   vpc_id      = data.aws_vpc.vpc_available.id
 
@@ -92,7 +92,6 @@ resource "aws_security_group" "aws-public-sg" {
   }
 
   tags = {
-    Name        = "${lower(var.app_name)}-${var.app_environment}-pluto-sg"
-    Environment = var.app_environment
+    Name = "${lower(var.app_name)}-pluto-sg"
   }
 }
