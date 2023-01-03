@@ -24,6 +24,35 @@ db_sg_name    = "db-sg"
 pluto_sg_name = "pluto-sg"
 msk_sg_name   = "msk-sg"
 
+####################SG Rules####################
+sg_rules = [
+  {
+    description = "http"
+    cidr_block       = "10.0.0.0/24"
+    from_port        = 80
+    protocol         = "tcp"
+    security_group   = "EKS-sg"
+    to_port          = 80
+  },
+  {
+    description = "ssh"
+    cidr_block       = "10.0.1.0/24"
+    from_port        = 22
+    protocol         = "tcp"
+    security_group   = "EKS-sg"
+    to_port          = 22
+  },
+    {
+    description = "ssh"
+    cidr_block       = "10.0.1.0/24"
+    from_port        = 22
+    protocol         = "tcp"
+    security_group   = "db-sg"
+    to_port          = 22
+  },
+]
+
+
 
 ###################_______EC2_____##############
 app_name = "test123"

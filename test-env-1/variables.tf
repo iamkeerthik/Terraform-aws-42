@@ -339,3 +339,27 @@ variable "volume_size" {
 #   default = "msk-role"
 
 # }
+
+
+variable "sg_rules" {
+  type = list(object({
+    description = string,
+    cidr_block       = string,
+    from_port        = number,
+    protocol         = string,
+    security_group   = string,
+    to_port          = number,
+  }))
+
+
+  default = [
+    {
+      description = "http"
+      cidr_block       = "0.0.0.0/0"
+      from_port        = 80
+      protocol         = "tcp"
+      security_group   = ""
+      to_port          = 80
+    },
+  ]
+}
