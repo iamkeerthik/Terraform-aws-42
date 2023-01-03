@@ -102,19 +102,19 @@ variable "manage_default_route_table" {
 
 variable "eks_sg_name" {
   type = string
-  
+
 }
 
 variable "db_sg_name" {
-   type = string
+  type = string
 }
 
 variable "pluto_sg_name" {
-  type= string
+  type = string
 }
 
 variable "msk_sg_name" {
-  type    = string
+  type = string
 }
 
 

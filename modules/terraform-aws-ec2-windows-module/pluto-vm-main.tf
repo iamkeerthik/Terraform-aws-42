@@ -4,12 +4,13 @@ resource "aws_instance" "pluto-server" {
   ami           = data.aws_ami.windows-2016.id
   instance_type = var.pluto_instance_type
   # iam_instance_profile        = data.aws_iam_instance_profile.instance_profile.role_name
-  key_name = data.aws_key_pair.key.key_name
+  key_name                    = data.aws_key_pair.key.key_name
   vpc_security_group_ids      = [data.aws_security_group.pluto_security_group.id]
   subnet_id                   = data.aws_subnet.private.id
   associate_public_ip_address = var.windows_associate_public_ip_address
   source_dest_check           = false
-  user_data = file("${path.module}/userdata.ps1")
+  # user_data = file("${path.module}/pluto-userdata.ps1")
+  user_data = var.pluto_user_data
   # root disk
   root_block_device {
     volume_size           = var.windows_root_volume_size

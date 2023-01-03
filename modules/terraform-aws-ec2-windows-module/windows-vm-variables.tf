@@ -50,13 +50,20 @@ variable "key_name" {
 }
 
 variable "db_sg_name" {
-   type = string
+  type = string
 }
 
 variable "pluto_sg_name" {
-  type= string
+  type = string
 }
 
+variable "pluto_user_data" {
+  type = string
+}
+
+variable "db_user_data" {
+  type = string
+}
 # variable "windows_instance_name_1" {
 #   type        = string
 #   description = "EC2 instance name for Windows Server"

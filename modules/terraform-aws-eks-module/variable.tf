@@ -44,7 +44,7 @@ variable "endpoint_public_access" {
 }
 
 variable "eks_version" {
-  
+
 }
 
 variable "node_group_name" {
@@ -70,5 +70,5 @@ variable "vpc_name" {
 
 variable "eks_sg_name" {
   type = string
-  
+
 }

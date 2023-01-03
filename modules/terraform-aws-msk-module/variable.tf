@@ -41,8 +41,8 @@ variable "environment" {
 }
 
 variable "msk_sg_name" {
-  type    = string
- 
+  type = string
+
 }
 
 # variable "msk_role" {
