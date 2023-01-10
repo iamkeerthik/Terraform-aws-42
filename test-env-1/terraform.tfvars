@@ -83,8 +83,8 @@ windows_data_volume_type            = "gp2"
 
 #################_______EKS_________##############
 cluster_name            = "eks-cluster"
-subnet_1                = "private-1a"
-subnet_2                = "private-1b"
+eks_subnet_1            = "private-1a"
+eks_subnet_2            = "private-1b"
 asg_desired_size        = 1
 asg_max_size            = 1
 asg_min_size            = 1
@@ -101,6 +101,8 @@ node_role_name          = "eks-node-group-role"
 
 ##################__________MSK_________#################
 msk_cluster_name   = "terraform-msk"
+msk_subnet_1       = "private-1a"
+msk_subnet_2       = "private-1b"
 kafka_version      = "2.6.2"
 no_of_nodes        = "2"
 kafka_intance_type = "kafka.t3.small"

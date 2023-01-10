@@ -160,11 +160,11 @@ variable "cluster_name" {
   type = string
 }
 
-variable "subnet_1" {
+variable "eks_subnet_1" {
   type = string
 }
 
-variable "subnet_2" {
+variable "eks_subnet_2" {
   type = string
 }
 
@@ -254,6 +254,13 @@ variable "pluto_sg_name" {
   type = string
 }
 
+variable "msk_subnet_1" {
+  type = string
+}
+
+variable "msk_subnet_2" {
+  type = string
+}
 variable "volume_size" {
   type = number
 }

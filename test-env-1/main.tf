@@ -60,8 +60,8 @@ module "eks" {
   ]
   cluster_name            = var.cluster_name
   vpc_name                = var.vpc_name
-  subnet_1                = var.subnet_1
-  subnet_2                = var.subnet_2
+  subnet_1                = var.eks_subnet_1
+  subnet_2                = var.eks_subnet_2
   asg_desired_size        = var.asg_desired_size
   asg_max_size            = var.asg_max_size
   asg_min_size            = var.asg_min_size
@@ -83,8 +83,8 @@ module "MSK" {
     module.vpc
   ]
   vpc_name           = var.vpc_name
-  subnet_1           = var.subnet_1
-  subnet_2           = var.subnet_2
+  subnet_1           = var.msk_subnet_1
+  subnet_2           = var.msk_subnet_2
   cluster_name       = var.msk_cluster_name
   volume_size        = var.volume_size
   msk_cluster_name   = var.msk_cluster_name
