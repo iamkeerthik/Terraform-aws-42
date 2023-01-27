@@ -16,6 +16,11 @@ variable "igw_tag" {
   type        = string
 }
 
+variable "egw_tag" {
+  description = "Mention Tag needs to be associated with egress only internet gateway"
+  type        = string
+}
+
 variable "nat_tag" {
   description = "Mention Tag needs to be associated with NAT gateway"
   type        = string

@@ -227,7 +227,7 @@ resource "aws_security_group_rule" "allow_eks_to_msk" {
   source_security_group_id = aws_security_group.msk-sg.id
 }
 
-resource "aws_security_group_rule" "allow_msk_to_esk" {
+resource "aws_security_group_rule" "allow_msk_to_eks" {
   type                     = "ingress"
   from_port                = 0
   to_port                  = 0

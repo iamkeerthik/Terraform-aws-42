@@ -13,25 +13,48 @@ resource "aws_s3_bucket" "logs_bucket" {
   bucket = "msk-logs-${var.msk_cluster_name}"
 }
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "s3_encryption" {
+  bucket = aws_s3_bucket.logs_bucket.id
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+resource "aws_s3_bucket_lifecycle_configuration" "Expiry" {
+  bucket = aws_s3_bucket.logs_bucket.id
+
+  rule {
+    id      = "Expiry"
+    status  = "Enabled"
+    filter {
+      prefix = "logs"
+    }
+    expiration {
+      days = 60
+    }
+  }
+}
 # Create the MSK cluster
 resource "aws_msk_cluster" "my_cluster" {
   cluster_name           = var.msk_cluster_name
   kafka_version          = var.kafka_version
   number_of_broker_nodes = var.no_of_nodes
-  enhanced_monitoring    = "PER_TOPIC_PER_BROKER" #available options PER_BROKER, DEFAULT
+  enhanced_monitoring    = "PER_TOPIC_PER_BROKER" #available options PER_BROKER, DEFAULT #for stage DEFAULT
   open_monitoring {
     prometheus {
       jmx_exporter {
-        enabled_in_broker = true
+        enabled_in_broker = var.open_monitoring
       }
       node_exporter {
-        enabled_in_broker = true
+        enabled_in_broker = var.open_monitoring
       }
     }
   }
   configuration_info {
+    # arn      = var.aws_msk_configuration_arn
     arn      = aws_msk_configuration.example.arn
-    revision = 1
+    revision = var.config_revision
   }
 
   broker_node_group_info {

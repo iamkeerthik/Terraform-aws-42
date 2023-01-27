@@ -4,6 +4,7 @@ module "vpc" {
   vpc_name                   = var.vpc_name
   cidr                       = var.cidr
   igw_tag                    = var.igw_tag
+  egw_tag                    = var.egw_tag
   nat_tag                    = var.nat_tag
   public_subnet_tag_1        = var.public_subnet_tag_1
   public_subnets_cidr_1      = var.public_subnets_cidr_1
@@ -44,63 +45,69 @@ module "ec2" {
   pluto_sg_name                       = var.pluto_sg_name
   db_sg_name                          = var.db_sg_name
   windows_associate_public_ip_address = var.windows_associate_public_ip_address
-  windows_root_volume_size            = var.windows_root_volume_size
+  pluto_root_volume_size            = var.pluto_root_volume_size
+  db_root_volume_size = var.db_root_volume_size
   windows_data_volume_size            = var.windows_data_volume_size
-  windows_root_volume_type            = var.windows_root_volume_type
+  pluto_root_volume_type            = var.pluto_root_volume_type
+  db_root_volume_type = var.db_root_volume_type
   windows_data_volume_type            = var.windows_data_volume_type
   pluto_user_data                     = file("pluto-userdata.ps1")
   db_user_data                        = file("db-userdata.ps1")
-
+  termination_protection              = var.termination_protection
+  ec2_role                            = var.ec2_role
 }
 
-module "eks" {
-  source = "../modules/terraform-aws-eks-module"
-  depends_on = [
-    module.vpc
-  ]
-  cluster_name            = var.cluster_name
-  vpc_name                = var.vpc_name
-  subnet_1                = var.eks_subnet_1
-  subnet_2                = var.eks_subnet_2
-  asg_desired_size        = var.asg_desired_size
-  asg_max_size            = var.asg_max_size
-  asg_min_size            = var.asg_min_size
-  launch_template_id      = var.launch_template_id
-  launch_template_version = var.launch_template_version
-  endpoint_private_access = var.endpoint_private_access
-  endpoint_public_access  = var.endpoint_public_access
-  eks_version             = var.eks_version
-  node_group_name         = var.node_group_name
-  eks_instance_type       = var.eks_instance_type
-  cluster_role_name       = var.cluster_role_name
-  node_role_name          = var.node_role_name
-  eks_sg_name             = var.eks_sg_name
-}
+# module "eks" {
+#   source = "../modules/terraform-aws-eks-module"
+#   depends_on = [
+#     module.vpc
+#   ]
+#   cluster_name            = var.cluster_name
+#   vpc_name                = var.vpc_name
+#   subnet_1                = var.eks_subnet_1
+#   subnet_2                = var.eks_subnet_2
+#   asg_desired_size        = var.asg_desired_size
+#   asg_max_size            = var.asg_max_size
+#   asg_min_size            = var.asg_min_size
+#   launch_template_id      = var.launch_template_id
+#   launch_template_version = var.launch_template_version
+#   endpoint_private_access = var.endpoint_private_access
+#   endpoint_public_access  = var.endpoint_public_access
+#   eks_version             = var.eks_version
+#   node_group_name         = var.node_group_name
+#   eks_instance_type       = var.eks_instance_type
+#   cluster_role_name       = var.cluster_role_name
+#   node_role_name          = var.node_role_name
+#   eks_sg_name             = var.eks_sg_name
+# }
 
-module "MSK" {
-  source = "../modules/terraform-aws-msk-module"
-  depends_on = [
-    module.vpc
-  ]
-  vpc_name           = var.vpc_name
-  subnet_1           = var.msk_subnet_1
-  subnet_2           = var.msk_subnet_2
-  cluster_name       = var.msk_cluster_name
-  volume_size        = var.volume_size
-  msk_cluster_name   = var.msk_cluster_name
-  kafka_version      = var.kafka_version
-  no_of_nodes        = var.no_of_nodes
-  kafka_intance_type = var.kafka_intance_type
-  environment        = var.environment
-  msk_sg_name        = var.msk_sg_name
-}
+# module "MSK" {
+#   source = "../modules/terraform-aws-msk-module"
+#   depends_on = [
+#     module.vpc
+#   ]
+#   vpc_name           = var.vpc_name
+#   subnet_1           = var.msk_subnet_1
+#   subnet_2           = var.msk_subnet_2
+#   cluster_name       = var.msk_cluster_name
+#   volume_size        = var.volume_size
+#   msk_cluster_name   = var.msk_cluster_name
+#   kafka_version      = var.kafka_version
+#   no_of_nodes        = var.no_of_nodes
+#   kafka_intance_type = var.kafka_intance_type
+#   environment        = var.environment
+#   msk_sg_name        = var.msk_sg_name
+#   open_monitoring    = var.open_monitoring
+#   aws_msk_configuration_arn = var.aws_msk_configuration_arn
+#   config_revision = var.config_revision
+# }
 
 
-terraform {
-  backend "s3" {
-    bucket  = "terrafrm-state-files"
-    key     = "terraform/dev-test-env"
-    region  = "eu-west-1"
-    profile = "PS"
-  }
-}
+# terraform {
+#   backend "s3" {
+#     bucket  = "terrafrm-state-files"
+#     key     = "terraform/dev-test-env"
+#     region  = "eu-west-1"
+#     profile = "PS"
+#   }
+# }

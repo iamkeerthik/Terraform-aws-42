@@ -1,22 +1,4 @@
-###################################
-## Virtual Machine Module - Main ##
-###################################
 
-# Bootstrapping PowerShell Script
-# data "template_file" "windows-userdata" {
-#   template = <<EOF
-# <powershell>
-# # Rename Machine
-# Rename-Computer -NewName "${var.windows_instance_name}" -Force;
-
-# # Install IIS
-# Install-WindowsFeature -name Web-Server -IncludeManagementTools;
-
-# # Restart machine
-# shutdown -r -t 10;
-# </powershell>
-# EOF
-# }
 
 # Create EC2 Instance
 resource "aws_instance" "public-server" {
@@ -25,7 +7,7 @@ resource "aws_instance" "public-server" {
   # iam_instance_profile        = data.aws_iam_instance_profile.instance_profile.role_name
   key_name = data.aws_key_pair.key.key_name
   # vpc_security_group_ids      = data.aws_security_groups.sg.ids
-  vpc_security_group_ids      = [data.aws_security_group.pluto_security_group.id]
+  vpc_security_group_ids      = [aws_security_group.aws-public-sg.id]
   subnet_id                   = data.aws_subnet.public.id
   associate_public_ip_address = true
   source_dest_check           = false
@@ -34,8 +16,8 @@ resource "aws_instance" "public-server" {
   #   user_data = file("${path.module}/userdata.ps1")
   # root disk
   root_block_device {
-    volume_size           = var.windows_root_volume_size
-    volume_type           = var.windows_root_volume_type
+    volume_size           = var.pluto_root_volume_size
+    volume_type           = var.pluto_root_volume_type
     delete_on_termination = true
     encrypted             = true
   }
@@ -80,7 +62,7 @@ resource "aws_security_group" "aws-public-sg" {
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["103.171.59.0/24"]
     description = "Allow incoming RDP connections"
   }
 
@@ -92,6 +74,6 @@ resource "aws_security_group" "aws-public-sg" {
   }
 
   tags = {
-    Name = "${lower(var.app_name)}-pluto-sg"
+    Name = "${lower(var.app_name)}-public-sg"
   }
 }

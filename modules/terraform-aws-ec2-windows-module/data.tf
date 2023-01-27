@@ -1,6 +1,6 @@
-# data "aws_iam_instance_profile" "instance_profile" {
-#   name = "MyEC2SSMRole"
-# }
+data "aws_iam_role" "instance_role" {
+  name = var.ec2_role
+}
 ################################################################################
 # Availability Zones list out
 ################################################################################

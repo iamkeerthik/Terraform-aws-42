@@ -45,11 +45,6 @@ variable "msk_sg_name" {
 
 }
 
-# variable "msk_role" {
-#   type = string
-#   default = "msk-role"
-
-# }
 
 variable "vpc_name" {
   description = "Tag Name to be assigned with VPC"
@@ -62,4 +57,16 @@ variable "subnet_1" {
 
 variable "subnet_2" {
   type = string
+}
+
+variable "open_monitoring" {
+  type = bool
+}
+
+variable "aws_msk_configuration_arn" {
+  type = string
+}
+
+variable "config_revision" {
+  type = number
 }

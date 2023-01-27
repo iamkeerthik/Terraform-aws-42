@@ -41,3 +41,13 @@ data "aws_ami" "windows-2022" {
     values = ["Windows_Server-2022-English-Full-Base*"]
   }
 }
+
+# Get latest Windows Server 2019 AMI with SQL 2022 standard
+data "aws_ami" "windows-2022-SQL-standard" {
+  most_recent = true
+  owners      = ["amazon"]
+  filter {
+    name   = "name"
+    values = ["Windows_Server-2022-English-Full-SQL_2022_Standard*"]
+  }
+}

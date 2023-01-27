@@ -15,6 +15,11 @@ variable "igw_tag" {
   type        = string
 }
 
+variable "egw_tag" {
+  description = "Mention Tag needs to be associated with egress only internet gateway"
+  type        = string
+}
+
 variable "nat_tag" {
   description = "Mention Tag needs to be associated with NAT gateway"
   type        = string
@@ -129,7 +134,12 @@ variable "windows_associate_public_ip_address" {
   description = "Associate a public IP address to the EC2 instance"
 }
 
-variable "windows_root_volume_size" {
+variable "pluto_root_volume_size" {
+  type        = number
+  description = "Volumen size of root volumen of Windows Server"
+}
+
+variable "db_root_volume_size" {
   type        = number
   description = "Volumen size of root volumen of Windows Server"
 }
@@ -139,9 +149,16 @@ variable "windows_data_volume_size" {
   description = "Volumen size of data volumen of Windows Server"
 }
 
-variable "windows_root_volume_type" {
+variable "pluto_root_volume_type" {
   type        = string
-  description = "Volumen type of root volumen of Windows Server. Can be standard, gp3, gp2, io1, sc1 or st1"
+  description = "Volumen type of root volumen of pluto Server. Can be standard, gp3, gp2, io1, sc1 or st1"
+
+}
+
+variable "db_root_volume_type" {
+  type        = string
+  description = "Volumen type of root volumen of db Server. Can be standard, gp3, gp2, io1, sc1 or st1"
+
 }
 
 variable "windows_data_volume_type" {
@@ -153,6 +170,15 @@ variable "windows_data_volume_type" {
 variable "key_name" {
   type = string
 
+}
+
+variable "termination_protection" {
+  type = bool
+}
+
+variable "ec2_role" {
+  type = string
+  description = "IAM role for ec2 for ssm and cloudwatch"
 }
 #########________EKS_______###########
 
@@ -270,6 +296,17 @@ variable "volume_size" {
 
 # }
 
+variable "open_monitoring" {
+  type = bool
+}
+
+variable "aws_msk_configuration_arn" {
+  type = string
+}
+
+variable "config_revision" {
+  type = number
+}
 
 variable "sg_rules" {
   type = list(object({
