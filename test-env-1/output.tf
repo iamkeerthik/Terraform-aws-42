@@ -19,7 +19,7 @@ output "Internet_gateway" {
   value = module.vpc.Internet_Gateway
 }
 output "Egressonly_IGW" {
-  value =module.vpc.Egress_only_IGW
+  value = module.vpc.Egress_only_IGW
 }
 output "NAT_gateway" {
   value = module.vpc.NAT_Gateway

@@ -8,7 +8,7 @@ resource "aws_vpc" "myVPC" {
   enable_dns_support   = var.enable_dns_support
   assign_generated_ipv6_cidr_block = var.enable_ipv6
   tags = {
-    Name = var.vpc_name
+    Name = "${var.name}-vpc"
   }
 }
 
@@ -20,7 +20,7 @@ resource "aws_internet_gateway" "IGW" {
 
   vpc_id = aws_vpc.myVPC.id
   tags = {
-    "Name" = var.igw_tag
+    "Name" = "${var.name}-IGW"
   }
 }
 
@@ -30,7 +30,7 @@ resource "aws_internet_gateway" "IGW" {
 resource "aws_egress_only_internet_gateway" "EgressonlyIGW" {
   vpc_id = aws_vpc.myVPC.id
   tags = {
-    "Name" = var.egw_tag
+    "Name" = "${var.name}-egw"
   }
 }
 
@@ -47,7 +47,7 @@ resource "aws_subnet" "public_subnet_1" {
   map_public_ip_on_launch = var.map_public_ip_on_launch
 
   tags = {
-    Name = var.public_subnet_tag_1
+    Name = "${var.name}-public-subent-1a"
   }
 }
 resource "aws_subnet" "public_subnet_2" {
@@ -58,7 +58,7 @@ resource "aws_subnet" "public_subnet_2" {
   map_public_ip_on_launch = var.map_public_ip_on_launch
 
   tags = {
-    Name = var.public_subnet_tag_2
+    Name = "${var.name}-public-subent-1b"
   }
 }
 
@@ -74,7 +74,7 @@ resource "aws_subnet" "private_subnet_1" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = var.private_subnet_tag_1
+    Name = "${var.name}-private-subent-1a"
   }
 }
 resource "aws_subnet" "private_subnet_2" {
@@ -85,7 +85,7 @@ resource "aws_subnet" "private_subnet_2" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name = var.private_subnet_tag_2
+    Name = "${var.name}-private-subent-1a"
   }
 }
 ###############################################################################
@@ -95,7 +95,7 @@ resource "aws_subnet" "private_subnet_2" {
 resource "aws_eip" "nat_eip" {
   vpc = true
   tags = {
-    "Name" = var.nat_tag
+    "Name" = "${var.name}-nat-eip"
   }
 }
 
@@ -107,7 +107,7 @@ resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.nat_eip.id
   subnet_id     = aws_subnet.public_subnet_1.id
   tags = {
-    "Name" = var.nat_tag
+    "Name" = "${var.name}-nat"
   }
 }
 
@@ -119,7 +119,7 @@ resource "aws_nat_gateway" "nat_gateway" {
 resource "aws_route_table" "public_route_table" {
   vpc_id = aws_vpc.myVPC.id
   tags = {
-    Name = var.public_route_table_tag
+    Name = "${var.name}-public-rt"
   }
 }
 resource "aws_route" "public_internet_gateway_route" {
@@ -136,7 +136,7 @@ resource "aws_route_table" "private_route_table" {
   vpc_id = aws_vpc.myVPC.id
 
   tags = {
-    Name = var.private_route_table_tag
+    Name = "${var.name}-private-rt"
   }
   route {
     cidr_block     = "0.0.0.0/0"

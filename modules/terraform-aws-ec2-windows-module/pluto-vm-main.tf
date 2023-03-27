@@ -6,8 +6,8 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 
 # Create EC2 Instance
 resource "aws_instance" "pluto-server" {
-  ami           = data.aws_ami.windows-2016.id
-  instance_type = var.pluto_instance_type
+  ami                         = data.aws_ami.windows-2016.id
+  instance_type               = var.pluto_instance_type
   iam_instance_profile        = aws_iam_instance_profile.ec2_profile.name
   key_name                    = data.aws_key_pair.key.key_name
   vpc_security_group_ids      = [data.aws_security_group.pluto_security_group.id]
@@ -35,7 +35,8 @@ resource "aws_instance" "pluto-server" {
   # }
 
   tags = {
-    Name = "${lower(var.app_name)}-pluto-server"
+    Name = "${lower(var.name)}-pluto-server",
+    env = "${var.name}"
   }
 }
 

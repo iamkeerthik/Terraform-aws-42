@@ -22,18 +22,9 @@ resource "aws_instance" "public-server" {
     encrypted             = true
   }
 
-  # extra disk
-  ebs_block_device {
-    device_name           = "/dev/xvda"
-    volume_size           = var.windows_data_volume_size
-    volume_type           = var.windows_data_volume_type
-    encrypted             = true
-    delete_on_termination = true
-  }
-
   tags = {
-    Name = "${lower(var.app_name)}-public-server"
-
+    Name = "${lower(var.name)}-public-server",
+    env = "${var.name}"
   }
 }
 
@@ -54,7 +45,7 @@ resource "aws_instance" "public-server" {
 
 # Define the security group for the Windows server
 resource "aws_security_group" "aws-public-sg" {
-  name        = "${lower(var.app_name)}-public-sg"
+  name        = "${lower(var.name)}-public-sg"
   description = "Allow incoming connections"
   vpc_id      = data.aws_vpc.vpc_available.id
 
@@ -74,6 +65,6 @@ resource "aws_security_group" "aws-public-sg" {
   }
 
   tags = {
-    Name = "${lower(var.app_name)}-public-sg"
+    Name = "${lower(var.name)}-public-sg"
   }
 }

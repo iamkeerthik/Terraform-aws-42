@@ -15,7 +15,7 @@ data "aws_key_pair" "key" {
 data "aws_vpc" "vpc_available" {
   filter {
     name   = "tag:Name"
-    values = [var.vpc_name]
+    values = ["${var.name}-vpc"]
   }
 }
 data "aws_subnet" "private" {
@@ -23,7 +23,7 @@ data "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available_1.names[0]
   filter {
     name   = "tag:Name"
-    values = [var.private_subnet_tag_1]
+    values = ["${var.name}-private-subent-1a"]
   }
 }
 
@@ -32,7 +32,7 @@ data "aws_subnet" "public" {
   availability_zone = data.aws_availability_zones.available_1.names[0]
   filter {
     name   = "tag:Name"
-    values = [var.public_subnet_tag_1]
+    values = ["${var.name}-public-subent-1a"]
   }
 }
 
@@ -41,7 +41,7 @@ data "aws_security_group" "db_security_group" {
   vpc_id = data.aws_vpc.vpc_available.id
   filter {
     name   = "tag:Name"
-    values = [var.db_sg_name]
+    values = ["${var.name}-db-sg"]
   }
 }
 
@@ -49,6 +49,6 @@ data "aws_security_group" "pluto_security_group" {
   vpc_id = data.aws_vpc.vpc_available.id
   filter {
     name   = "tag:Name"
-    values = [var.pluto_sg_name]
+    values = ["${var.name}-pluto-sg"]
   }
 }

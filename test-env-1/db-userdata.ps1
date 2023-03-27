@@ -6,16 +6,19 @@ $ProgressPreference = 'SilentlyContinue'
 $ssms_url = "https://aka.ms/ssmsfullsetup";
 $output = "C:\SSMS-Setup-ENU.exe";
 Invoke-WebRequest $ssms_url -OutFile $output;
+Start-Process "C:\SSMS-Setup-ENU.exe" -ArgumentList "/install /quiet /norestart" -Wait;
 
-# Start-Process -FilePath "C:\SSMS-Setup-ENU.exe" -ArgumentList '/install /quiet' -Wait;
+
 
  $sql_url = "https://go.microsoft.com/fwlink/?linkid=866658";
- $sql_output = "C:/sql_express.exe";
+ $sql_output = "C:\sql_express.exe";
  Invoke-WebRequest $sql_url -OutFile $sql_output;
+ Start-Process "C:\sql_express.exe" -ArgumentList "/QS /IACCEPTSQLSERVERLICENSETERMS /ACTION=install /FEATURES=SQL /INSTANCENAME=SQLEXPRESS /SQLSVCACCOUNT=`"NT Authority\System`" /SQLSYSADMINACCOUNTS=`"BUILTIN\Administrators`" /AGTSVCACCOUNT=`"NT Authority\Network Service`" /TCPENABLED=1 /NPENABLED=1 /SKIPRULES=`"PerfMonCounterNotCorruptedCheck,GlobalRules.Sql110NotSupportedRule`"" -Wait
 
  $mongo_url = "https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-6.0.4-signed.msi"
  $mongo_output = "C:/mongodb.msi"
  Invoke-WebRequest $mongo_url -OutFile $mongo_output
+ Start-Process "msiexec.exe" -ArgumentList "/i `"C:/mongodb.msi`" /qn" -Wait
 
  # download and install chrome
  Set-Location "C:\Windows\system32"

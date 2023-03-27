@@ -1,6 +1,11 @@
 ########################################
 ## Virtual Machine Module - Variables ##
 ########################################
+variable "name" {
+  description = "Tag Name to be assigned with resources"
+  type        = string
+
+}
 variable "ec2_role" {
   type = string
   description = "IAM role for ec2 for ssm and cloudwatch"
@@ -54,22 +59,10 @@ variable "windows_data_volume_type" {
 
 }
 
-variable "vpc_name" {
-  type = string
-
-}
 
 variable "key_name" {
   type = string
 
-}
-
-variable "db_sg_name" {
-  type = string
-}
-
-variable "pluto_sg_name" {
-  type = string
 }
 
 variable "pluto_user_data" {
@@ -80,31 +73,7 @@ variable "db_user_data" {
   type = string
 }
 
-variable "private_subnet_tag_1" {
-  description = "Tag for Private Subnet"
-  type        = string
-}
-
-variable "private_subnet_tag_2" {
-  description = "Tag for Private Subnet"
-  type        = string
-}
-
-variable "public_subnet_tag_1" {
-  description = "Tag for public subnet"
-  type        = string
-}
 
 variable "termination_protection" {
   type = bool
 }
-# variable "windows_instance_name_1" {
-#   type        = string
-#   description = "EC2 instance name for Windows Server"
-#   default     = "pluto"
-# }
-# variable "windows_instance_name_2" {
-#   type        = string
-#   description = "EC2 instance name for Windows Server"
-#   default     = "database"
-# }

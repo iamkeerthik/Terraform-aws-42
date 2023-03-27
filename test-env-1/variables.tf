@@ -1,8 +1,9 @@
 ############____VPC____###################
 
-variable "vpc_name" {
-  description = "Tag Name to be assigned with VPC"
+variable "name" {
+  description = "Tag Name to be assigned with resources"
   type        = string
+
 }
 
 variable "cidr" {
@@ -10,33 +11,8 @@ variable "cidr" {
   type        = string
 }
 
-variable "igw_tag" {
-  description = "Mention Tag needs to be associated with internet gateway"
-  type        = string
-}
-
-variable "egw_tag" {
-  description = "Mention Tag needs to be associated with egress only internet gateway"
-  type        = string
-}
-
-variable "nat_tag" {
-  description = "Mention Tag needs to be associated with NAT gateway"
-  type        = string
-}
-
-variable "public_subnet_tag_1" {
-  description = "Tag for public subnet"
-  type        = string
-}
-
 variable "public_subnets_cidr_1" {
   description = "Cidr Blocks"
-  type        = string
-}
-
-variable "public_subnet_tag_2" {
-  description = "Tag for public subnet"
   type        = string
 }
 
@@ -50,18 +26,8 @@ variable "map_public_ip_on_launch" {
   type        = bool
 }
 
-variable "private_subnet_tag_1" {
-  description = "Tag for Private Subnet"
-  type        = string
-}
-
 variable "private_subnets_cidr_1" {
   description = "mention the CIDR block for database subnet"
-  type        = string
-}
-
-variable "private_subnet_tag_2" {
-  description = "Tag for Private Subnet"
   type        = string
 }
 
@@ -95,29 +61,18 @@ variable "enable_ipv6" {
   type        = bool
 }
 
-variable "public_route_table_tag" {
-  description = "Tag name for public route table"
-  type        = string
-}
-variable "private_route_table_tag" {
-  description = "Tage for private route table"
-  type        = string
-}
-
 variable "manage_default_route_table" {
   description = "Are we managing default route table"
   type        = bool
 }
+
+
 
 #############______EC2________###############
 
 ########################################
 ## Virtual Machine Module - Variables ##
 ########################################
-variable "app_name" {
-  type        = string
-  description = "Application name"
-}
 
 variable "pluto_instance_type" {
   type        = string
@@ -177,22 +132,10 @@ variable "termination_protection" {
 }
 
 variable "ec2_role" {
-  type = string
+  type        = string
   description = "IAM role for ec2 for ssm and cloudwatch"
 }
 #########________EKS_______###########
-
-variable "cluster_name" {
-  type = string
-}
-
-variable "eks_subnet_1" {
-  type = string
-}
-
-variable "eks_subnet_2" {
-  type = string
-}
 
 variable "asg_desired_size" {
   type = number
@@ -225,10 +168,6 @@ variable "eks_version" {
   type = string
 }
 
-variable "node_group_name" {
-  type = string
-}
-
 variable "eks_instance_type" {
   type = string
 }
@@ -243,10 +182,6 @@ variable "node_role_name" {
 
 #############______MSK________#################
 
-variable "msk_cluster_name" {
-  type = string
-}
-
 variable "kafka_version" {
   type = string
 }
@@ -259,42 +194,9 @@ variable "kafka_intance_type" {
   type = string
 }
 
-variable "environment" {
-  type = string
-}
-
-variable "msk_sg_name" {
-  type = string
-}
-
-variable "eks_sg_name" {
-  type = string
-
-}
-
-variable "db_sg_name" {
-  type = string
-}
-
-variable "pluto_sg_name" {
-  type = string
-}
-
-variable "msk_subnet_1" {
-  type = string
-}
-
-variable "msk_subnet_2" {
-  type = string
-}
 variable "volume_size" {
   type = number
 }
-# variable "msk_role" {
-#   type = string
-#   default = "msk-role"
-
-# }
 
 variable "open_monitoring" {
   type = bool

@@ -14,7 +14,7 @@ variable "sg_rules" {
 ##############################################################################
 
 resource "aws_security_group" "aws-eks-sg" {
-  name   = var.eks_sg_name
+  name   = "${var.name}-eks-sg"
   vpc_id = aws_vpc.myVPC.id
 
   # Use the variable for the security group rules
@@ -49,7 +49,7 @@ resource "aws_security_group" "aws-eks-sg" {
   ]
 
   tags = {
-    Name = var.eks_sg_name
+    Name = "${var.name}-eks-sg"
   }
 }
 
@@ -57,7 +57,7 @@ resource "aws_security_group" "aws-eks-sg" {
 
 # Define the security group for the Windows server
 resource "aws_security_group" "aws-db-sg" {
-  name        = var.db_sg_name
+  name        = "${var.name}-db-sg"
   description = "Allow incoming connections"
   vpc_id      = aws_vpc.myVPC.id
   # Use the variable for the security group rules
@@ -91,14 +91,14 @@ resource "aws_security_group" "aws-db-sg" {
     }
   ]
   tags = {
-    Name = var.db_sg_name
+    Name = "${var.name}-db-sg"
 
   }
 }
 
 ################# Pluto_Security_Group #######################################
 resource "aws_security_group" "aws-pluto-sg" {
-  name        = var.pluto_sg_name
+  name        = "${var.name}-pluto-sg"
   description = "Allow incoming connections"
   vpc_id      = aws_vpc.myVPC.id
   # Use the variable for the security group rules
@@ -133,7 +133,7 @@ resource "aws_security_group" "aws-pluto-sg" {
   ]
 
   tags = {
-    Name = var.pluto_sg_name
+    Name = "${var.name}-pluto-sg"
   }
 }
 
@@ -142,7 +142,7 @@ resource "aws_security_group" "aws-pluto-sg" {
 
 # Create a security group for the MSK cluster
 resource "aws_security_group" "msk-sg" {
-  name        = var.msk_sg_name
+  name        = "${var.name}-msk-sg"
   description = "Security group for MSK cluster"
   vpc_id      = aws_vpc.myVPC.id
 
@@ -177,7 +177,7 @@ resource "aws_security_group" "msk-sg" {
     }
   ]
   tags = {
-    Name = var.msk_sg_name
+    Name = "${var.name}-msk-sg"
   }
 }
 

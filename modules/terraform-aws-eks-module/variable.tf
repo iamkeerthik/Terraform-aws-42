@@ -1,14 +1,6 @@
-variable "cluster_name" {
-
-}
-
-variable "subnet_1" {
-  type = string
-
-}
-
-variable "subnet_2" {
-  type = string
+variable "name" {
+  description = "Tag Name to be assigned with resources"
+  type        = string
 
 }
 
@@ -46,12 +38,6 @@ variable "endpoint_public_access" {
 variable "eks_version" {
 
 }
-
-variable "node_group_name" {
-  type = string
-
-}
-
 variable "eks_instance_type" {
   type = string
 }
@@ -61,14 +47,4 @@ variable "cluster_role_name" {
 }
 variable "node_role_name" {
   type = string
-}
-
-variable "vpc_name" {
-  type = string
-
-}
-
-variable "eks_sg_name" {
-  type = string
-
 }

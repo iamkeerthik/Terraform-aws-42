@@ -10,7 +10,7 @@ EOF
 
 # Create S3 Bucket for logging
 resource "aws_s3_bucket" "logs_bucket" {
-  bucket = "msk-logs-${var.msk_cluster_name}"
+  bucket = "${var.name}-msk-logs"
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "s3_encryption" {
@@ -37,7 +37,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "Expiry" {
 }
 # Create the MSK cluster
 resource "aws_msk_cluster" "my_cluster" {
-  cluster_name           = var.msk_cluster_name
+  cluster_name           = "${var.name}-msk-cluster"
   kafka_version          = var.kafka_version
   number_of_broker_nodes = var.no_of_nodes
   enhanced_monitoring    = "PER_TOPIC_PER_BROKER" #available options PER_BROKER, DEFAULT #for stage DEFAULT
@@ -86,8 +86,8 @@ resource "aws_msk_cluster" "my_cluster" {
   }
 
   tags = {
-    Name        = var.msk_cluster_name
-    Environment = var.environment
+    Name        = "${var.name}-msk-cluster"
+    Environment = var.name
   }
 }
 

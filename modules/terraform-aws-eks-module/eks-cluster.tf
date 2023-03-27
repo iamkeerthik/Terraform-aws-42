@@ -1,5 +1,5 @@
 resource "aws_eks_cluster" "suremdm-eks" {
-  name     = var.cluster_name
+  name     = "${var.name}-eks-cluster"
   version  = var.eks_version
   role_arn = data.aws_iam_role.cluster_role.arn
 
@@ -12,7 +12,7 @@ resource "aws_eks_cluster" "suremdm-eks" {
   }
 
   tags = {
-    Name = var.cluster_name
+    Name = "${var.name}-eks-cluster"
   }
 
 }
