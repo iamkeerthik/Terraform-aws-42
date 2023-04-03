@@ -179,6 +179,9 @@ variable "node_role_name" {
   type = string
 }
 
+variable "region" {
+  type = string
+}
 
 #############______MSK________#################
 
@@ -219,4 +222,15 @@ variable "sg_rules" {
     security_group = string,
     to_port        = number,
   }))
+}
+
+
+##########Logs_bucket###########
+variable "bucket_names" {
+  type        = list(string)
+  description = "The names of the S3 buckets to create for logs."
+}
+variable "bucket_prefix" {
+  type        = string
+  description = "The prefix for the name of the S3 buckets to create for logs."
 }

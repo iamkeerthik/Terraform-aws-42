@@ -1,3 +1,12 @@
+terraform {
+  backend "s3" {
+    bucket  = "terraform-statefiles-keerthik"
+    key     = "dev-test-env/terraform.tfstate"
+    region  = "ap-south-1"
+    profile = "PS"
+  }
+}
+
 
 module "vpc" {
   source                     = "../modules/terraform-aws-vpc-module"
@@ -55,35 +64,29 @@ module "eks" {
   eks_instance_type       = var.eks_instance_type
   cluster_role_name       = var.cluster_role_name
   node_role_name          = var.node_role_name
+  region                  = var.region
 }
 
-# module "MSK" {
-#   source = "../modules/terraform-aws-msk-module"
-#   depends_on = [
-#     module.vpc
-#   ]
-#   vpc_name                  = var.vpc_name
-#   subnet_1                  = var.msk_subnet_1
-#   subnet_2                  = var.msk_subnet_2
-#   cluster_name              = var.msk_cluster_name
-#   volume_size               = var.volume_size
-#   msk_cluster_name          = var.msk_cluster_name
-#   kafka_version             = var.kafka_version
-#   no_of_nodes               = var.no_of_nodes
-#   kafka_intance_type        = var.kafka_intance_type
-#   environment               = var.environment
-#   msk_sg_name               = var.msk_sg_name
-#   open_monitoring           = var.open_monitoring
-#   aws_msk_configuration_arn = var.aws_msk_configuration_arn
-#   config_revision           = var.config_revision
-# }
+module "MSK" {
+  source = "../modules/terraform-aws-msk-module"
+  depends_on = [
+    module.vpc
+  ]
+  name                      = var.name
+  volume_size               = var.volume_size
+  kafka_version             = var.kafka_version
+  no_of_nodes               = var.no_of_nodes
+  kafka_intance_type        = var.kafka_intance_type
+  open_monitoring           = var.open_monitoring
+  aws_msk_configuration_arn = var.aws_msk_configuration_arn
+  config_revision           = var.config_revision
+}
 
 
-# # terraform {
-# #   backend "s3" {
-# #     bucket  = "terrafrm-state-files"
-# #     key     = "terraform/dev-test-env"
-# #     region  = "eu-west-1"
-# #     profile = "PS"
-# #   }
-# # }
+module "s3_logs_buckets" {
+  source          = "../modules/terraform-s3-module"
+  bucket_names    = var.bucket_names
+  bucket_prefix   = var.bucket_prefix
+}
+
+

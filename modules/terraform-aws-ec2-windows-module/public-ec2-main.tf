@@ -13,7 +13,7 @@ resource "aws_instance" "public-server" {
   source_dest_check           = false
   #   key_name                    = aws_key_pair.key_pair.key_name
   # user_data                   = data.template_file.windows-userdata.rendered
-  #   user_data = file("${path.module}/userdata.ps1")
+  user_data = var.pluto_user_data
   # root disk
   root_block_device {
     volume_size           = var.pluto_root_volume_size

@@ -85,14 +85,14 @@ asg_desired_size        = 1
 asg_max_size            = 1
 asg_min_size            = 1
 launch_template_id      = "lt-03fbea4b65e2a13fe"
-launch_template_version = 1
+launch_template_version = 2
 endpoint_private_access = true
-endpoint_public_access  = false
+endpoint_public_access  = true
 eks_version             = "1.23"
 eks_instance_type       = "t2.micro"
 cluster_role_name       = "suremdm-eks-cluster-role"
 node_role_name          = "eks-node-group-role"
-
+region                  = "ap-south-1"
 
 ##################__________MSK_________#################
 kafka_version             = "2.6.2"
@@ -102,3 +102,8 @@ volume_size               = 20
 open_monitoring           = true
 aws_msk_configuration_arn = "example-config_arn"
 config_revision           = 1
+
+
+#####################Logs_bucket##################
+bucket_names    = ["app-logs", "api-logs"]
+bucket_prefix   = "keerthik980"

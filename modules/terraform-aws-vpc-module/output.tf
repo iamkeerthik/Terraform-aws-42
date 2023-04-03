@@ -35,3 +35,4 @@ output "pluto_sg" {
 output "db_sg" {
   value = aws_security_group.aws-db-sg.id
 }
+

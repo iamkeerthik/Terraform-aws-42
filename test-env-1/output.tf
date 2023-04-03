@@ -35,23 +35,33 @@ output "DB_sg" {
 }
 
 ####################EC2##################
-output "pluto_machine_ip" {
-  value = module.ec2.pluto-server-private-ip
-}
-output "db_machine_ip" {
-  value = module.ec2.db_server_private_ip
-}
+# output "pluto_machine_ip" {
+#   value = module.ec2.pluto-server-private-ip
+# }
+# output "db_machine_ip" {
+#   value = module.ec2.db_server_private_ip
+# }
 
 # ##############EKS################
-# output "cluster_id" {
-#   value = module.eks.eks_cluster_id
-# }
+output "cluster_id" {
+  value = module.eks.cluster_id
+}
 
-# output "nodegroup_id" {
-#   value = module.eks.eks_nodegroup_id
-# }
+output "eks_nodegroup_id" {
+  value = module.eks.eks_nodegroup_id
+}
 
+output "cluster_endpoint" {
+  value = module.eks.cluster_endpoint
+}
 
+output "cluster_ca_cert" {
+  value = module.eks.cluster_ca_cert
+}
+
+output "cluster_name" {
+  value = module.eks.cluster_name
+}
 # ##############MSK######################
 # output "msk_cluster_id" {
 #   value = module.MSK.msk_cluter_id
