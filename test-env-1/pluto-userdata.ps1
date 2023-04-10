@@ -16,6 +16,15 @@ Install-WindowsFeature -name Web-Server -IncludeManagementTools;
 #Change TimeZone
 C:\Windows\System32\tzutil /s "AUS Eastern Standard Time"
 
+# Install the CloudWatch agent
+Invoke-WebRequest -Uri "https://s3.amazonaws.com/amazoncloudwatch-agent/windows/amd64/latest/amazon-cloudwatch-agent.msi" -OutFile "C:\Windows\Temp\amazon-cloudwatch-agent.msi"
+Start-Process -FilePath "msiexec.exe" -ArgumentList "/i C:\Windows\Temp\amazon-cloudwatch-agent.msi /quiet" -Wait
+
+# Retrieve the CloudWatch agent configuration from AWS Systems Manager Parameter Store
+$parameterName = "AmazonCloudWatch-windows"
+Start-Service -Name "AmazonCloudWatchAgent"
+& "C:\Program Files\Amazon\AmazonCloudWatchAgent\amazon-cloudwatch-agent-ctl.ps1" -a fetch-config -m ec2 -c ssm:$parameterName -s
+
 #Install Chrome 
 $Path = $env:TEMP;
 $Installer = "chrome_installer.exe";

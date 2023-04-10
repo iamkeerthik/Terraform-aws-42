@@ -135,6 +135,24 @@ variable "ec2_role" {
   type        = string
   description = "IAM role for ec2 for ssm and cloudwatch"
 }
+
+
+variable "linux_instance_type" {
+  type        = string
+  description = "EC2 instance type for Linux Server"
+}
+variable "linux_associate_public_ip_address" {
+  type        = bool
+  description = "Associate a public IP address to the EC2 instance"
+}
+variable "linux_root_volume_size" {
+  type        = number
+  description = "Volumen size of root volumen of Linux Server"
+}
+variable "linux_root_volume_type" {
+  type        = string
+  description = "Volumen type of root volumen of Linux Server."
+}
 #########________EKS_______###########
 
 variable "asg_desired_size" {

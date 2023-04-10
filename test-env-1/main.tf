@@ -8,44 +8,49 @@ terraform {
 }
 
 
-# module "vpc" {
-#   source                     = "../modules/terraform-aws-vpc-module"
-#   name                       = var.name
-#   cidr                       = var.cidr
-#   public_subnets_cidr_1      = var.public_subnets_cidr_1
-#   public_subnets_cidr_2      = var.public_subnets_cidr_2
-#   private_subnets_cidr_1     = var.private_subnets_cidr_1
-#   private_subnets_cidr_2     = var.private_subnets_cidr_2
-#   map_public_ip_on_launch    = var.map_public_ip_on_launch
-#   enable_dhcp_options        = var.enable_dhcp_options
-#   enable_dns_hostnames       = var.enable_dns_hostnames
-#   enable_dns_support         = var.enable_dns_support
-#   enable_ipv6                = var.enable_ipv6
-#   manage_default_route_table = var.manage_default_route_table
-#   sg_rules                   = var.sg_rules
-# }
+module "vpc" {
+  source                     = "../modules/terraform-aws-vpc-module"
+  name                       = var.name
+  cidr                       = var.cidr
+  public_subnets_cidr_1      = var.public_subnets_cidr_1
+  public_subnets_cidr_2      = var.public_subnets_cidr_2
+  private_subnets_cidr_1     = var.private_subnets_cidr_1
+  private_subnets_cidr_2     = var.private_subnets_cidr_2
+  map_public_ip_on_launch    = var.map_public_ip_on_launch
+  enable_dhcp_options        = var.enable_dhcp_options
+  enable_dns_hostnames       = var.enable_dns_hostnames
+  enable_dns_support         = var.enable_dns_support
+  enable_ipv6                = var.enable_ipv6
+  manage_default_route_table = var.manage_default_route_table
+  sg_rules                   = var.sg_rules
+}
 
-# module "ec2" {
-#   source = "../modules/terraform-aws-ec2-windows-module"
-#   depends_on = [
-#     module.vpc
-#   ]
-#   name                                = var.name
-#   key_name                            = var.key_name
-#   pluto_instance_type                 = var.pluto_instance_type
-#   db_instance_type                    = var.db_instance_type
-#   windows_associate_public_ip_address = var.windows_associate_public_ip_address
-#   pluto_root_volume_size              = var.pluto_root_volume_size
-#   db_root_volume_size                 = var.db_root_volume_size
-#   windows_data_volume_size            = var.windows_data_volume_size
-#   pluto_root_volume_type              = var.pluto_root_volume_type
-#   db_root_volume_type                 = var.db_root_volume_type
-#   windows_data_volume_type            = var.windows_data_volume_type
-#   pluto_user_data                     = file("pluto-userdata.ps1")
-#   db_user_data                        = file("db-userdata.ps1")
-#   termination_protection              = var.termination_protection
-#   ec2_role                            = var.ec2_role
-# }
+module "ec2" {
+  source = "../modules/terraform-aws-ec2-windows-module"
+  depends_on = [
+    module.vpc
+  ]
+  name                                = var.name
+  key_name                            = var.key_name
+  pluto_instance_type                 = var.pluto_instance_type
+  db_instance_type                    = var.db_instance_type
+  linux_instance_type                 = var.linux_instance_type
+  windows_associate_public_ip_address = var.windows_associate_public_ip_address
+  linux_associate_public_ip_address   = var.linux_associate_public_ip_address
+  pluto_root_volume_size              = var.pluto_root_volume_size
+  db_root_volume_size                 = var.db_root_volume_size
+  linux_root_volume_size              = var.linux_root_volume_size
+  windows_data_volume_size            = var.windows_data_volume_size
+  pluto_root_volume_type              = var.pluto_root_volume_type
+  db_root_volume_type                 = var.db_root_volume_type
+  linux_root_volume_type              = var.linux_root_volume_type
+  windows_data_volume_type            = var.windows_data_volume_type
+  pluto_user_data                     = file("pluto-userdata.ps1")
+  db_user_data                        = file("db-userdata.ps1")
+  linux_user_data                     = file("linux-userdata.sh")
+  termination_protection              = var.termination_protection
+  ec2_role                            = var.ec2_role
+}
 
 # module "eks" {
 #   source = "../modules/terraform-aws-eks-module"
@@ -89,6 +94,10 @@ terraform {
 #   bucket_prefix   = var.bucket_prefix
 # }
 
-module "Cloudwatch" {
-  source = "../modules/terraform-cloudwacth"
-}
+# module "Cloudwatch" {
+#   source = "../modules/terraform-cloudwacth"
+#   depends_on = [
+#     module.ec2
+#   ]
+#   name = var.name
+# }

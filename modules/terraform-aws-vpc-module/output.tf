@@ -18,11 +18,17 @@ output "private_subnet_2" {
 output "Internet_Gateway" {
   value = aws_internet_gateway.IGW.id
 }
-output "NAT_Gateway" {
-  value = aws_nat_gateway.nat_gateway.id
+output "NAT_Gateway-1a" {
+  value = aws_nat_gateway.nat_gateway-1a.id
 }
-output "nat_gateway_ip" {
-  value = aws_eip.nat_eip.public_ip
+output "NAT_Gateway-1b" {
+  value = aws_nat_gateway.nat_gateway-1b.id
+}
+output "nat_gateway_ip-1a" {
+  value = aws_eip.nat_eip-1a.public_ip
+}
+output "nat_gateway_ip-1b" {
+  value = aws_eip.nat_eip-1b.public_ip
 }
 
 output "Egress_only_IGW" {

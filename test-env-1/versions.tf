@@ -19,8 +19,8 @@ provider "http" {
 }
 
 provider "helm" {
-  
+
 }
 provider "kubernetes" {
-  
+
 }

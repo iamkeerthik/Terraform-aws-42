@@ -4,7 +4,7 @@
 resource "aws_instance" "public-server" {
   ami           = data.aws_ami.windows-2016.id
   instance_type = var.pluto_instance_type
-  # iam_instance_profile        = data.aws_iam_instance_profile.instance_profile.role_name
+  iam_instance_profile        = aws_iam_instance_profile.ec2_profile.name
   key_name = data.aws_key_pair.key.key_name
   # vpc_security_group_ids      = data.aws_security_groups.sg.ids
   vpc_security_group_ids      = [aws_security_group.aws-public-sg.id]
@@ -66,5 +66,6 @@ resource "aws_security_group" "aws-public-sg" {
 
   tags = {
     Name = "${lower(var.name)}-public-sg"
+    env = "${var.name}"
   }
 }

@@ -137,7 +137,46 @@ resource "aws_security_group" "aws-pluto-sg" {
   }
 }
 
+#####################Linux_Helper_Security_Group############################
+resource "aws_security_group" "aws-linux-sg" {
+  name        = "${var.name}-linux-helper-sg"
+  description = "Allow incoming connections"
+  vpc_id      = aws_vpc.myVPC.id
+  # Use the variable for the security group rules
+  ingress = [
+    for rule in var.sg_rules :
+    {
+      description      = rule.description
+      cidr_blocks      = [rule.cidr_block]
+      from_port        = rule.from_port
+      protocol         = rule.protocol
+      security_groups  = [rule.security_group]
+      to_port          = rule.to_port
+      ipv6_cidr_blocks = null
+      prefix_list_ids  = null
+      security_groups  = null
+      self             = null
+    }
+  ]
 
+  egress = [
+    {
+      from_port        = 0
+      to_port          = 0
+      protocol         = "-1"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
+      description      = "Outbound rule"
+      prefix_list_ids  = null
+      security_groups  = null
+      self             = null
+    }
+  ]
+
+  tags = {
+    Name = "${var.name}-linux-helper-sg"
+  }
+}
 ################# MSK_Security_Group #######################################
 
 # Create a security group for the MSK cluster
@@ -233,5 +272,31 @@ resource "aws_security_group_rule" "allow_msk_to_eks" {
   to_port                  = 0
   protocol                 = "-1"
   security_group_id        = aws_security_group.msk-sg.id
+  source_security_group_id = aws_security_group.aws-eks-sg.id
+}
+
+resource "aws_security_group_rule" "allow_linux_helper_to_pluto" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "-1"
+  security_group_id        = aws_security_group.aws-linux-sg.id
+  source_security_group_id = aws_security_group.aws-pluto-sg.id
+}
+resource "aws_security_group_rule" "allow_linux_helper_to_db" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "-1"
+  security_group_id        = aws_security_group.aws-linux-sg.id
+  source_security_group_id = aws_security_group.aws-db-sg.id
+}
+
+resource "aws_security_group_rule" "allow_linux_helper_to_eks" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "-1"
+  security_group_id        = aws_security_group.aws-linux-sg.id
   source_security_group_id = aws_security_group.aws-eks-sg.id
 }

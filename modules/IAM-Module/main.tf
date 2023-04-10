@@ -124,7 +124,7 @@ resource "aws_iam_role" "ec2_role" {
     {
       "Action": "sts:AssumeRole",
       "Principal": {
-        "Service": "kafka.amazonaws.com"
+        "Service": "ec2.amazonaws.com"
       },
       "Effect": "Allow",
       "Sid": ""
@@ -134,141 +134,146 @@ resource "aws_iam_role" "ec2_role" {
 EOF
 }
 
-resource "aws_iam_policy" "ec2_policy" {
-  name   = "ec2_policy"
-  policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ssm:DescribeAssociation",
-                "ssm:GetDeployablePatchSnapshotForInstance",
-                "ssm:GetDocument",
-                "ssm:DescribeDocument",
-                "ssm:GetManifest",
-                "ssm:GetParameters",
-                "ssm:ListAssociations",
-                "ssm:ListInstanceAssociations",
-                "ssm:PutInventory",
-                "ssm:PutComplianceItems",
-                "ssm:PutConfigurePackageResult",
-                "ssm:UpdateAssociationStatus",
-                "ssm:UpdateInstanceAssociationStatus",
-                "ssm:UpdateInstanceInformation"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ssmmessages:CreateControlChannel",
-                "ssmmessages:CreateDataChannel",
-                "ssmmessages:OpenControlChannel",
-                "ssmmessages:OpenDataChannel"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ec2messages:AcknowledgeMessage",
-                "ec2messages:DeleteMessage",
-                "ec2messages:FailMessage",
-                "ec2messages:GetEndpoint",
-                "ec2messages:GetMessages",
-                "ec2messages:SendReply"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "cloudwatch:PutMetricData"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ec2:DescribeInstanceStatus"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ds:CreateComputer",
-                "ds:DescribeDirectories"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:DescribeLogGroups",
-                "logs:DescribeLogStreams",
-                "logs:PutLogEvents"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetBucketLocation",
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:GetEncryptionConfiguration",
-                "s3:AbortMultipartUpload",
-                "s3:ListMultipartUploadParts",
-                "s3:ListBucket",
-                "s3:ListBucketMultipartUploads"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "cloudwatch:PutMetricData",
-                "ec2:DescribeTags",
-                "logs:PutLogEvents",
-                "logs:DescribeLogStreams",
-                "logs:DescribeLogGroups",
-                "logs:CreateLogStream",
-                "logs:CreateLogGroup"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ssm:GetParameter",
-                "ssm:PutParameter"
-            ],
-            "Resource": "arn:aws:ssm:*:*:parameter/AmazonCloudWatch-*"
-        },
-        {
-            "Action": [
-                "s3:Get*",
-                "s3:List*"
-            ],
-            "Effect": "Allow",
-            "Resource": "*"
-        }
-    ]
-}
-EOF
-}
+# resource "aws_iam_policy" "ec2_policy" {
+#   name   = "ec2_policy"
+#   policy = <<EOF
+# {
+#     "Version": "2012-10-17",
+#     "Statement": [
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "ssm:DescribeAssociation",
+#                 "ssm:GetDeployablePatchSnapshotForInstance",
+#                 "ssm:GetDocument",
+#                 "ssm:DescribeDocument",
+#                 "ssm:GetManifest",
+#                 "ssm:GetParameters",
+#                 "ssm:ListAssociations",
+#                 "ssm:ListInstanceAssociations",
+#                 "ssm:PutInventory",
+#                 "ssm:PutComplianceItems",
+#                 "ssm:PutConfigurePackageResult",
+#                 "ssm:UpdateAssociationStatus",
+#                 "ssm:UpdateInstanceAssociationStatus",
+#                 "ssm:UpdateInstanceInformation"
+#             ],
+#             "Resource": "*"
+#         },
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "ssmmessages:CreateControlChannel",
+#                 "ssmmessages:CreateDataChannel",
+#                 "ssmmessages:OpenControlChannel",
+#                 "ssmmessages:OpenDataChannel"
+#             ],
+#             "Resource": "*"
+#         },
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "ec2messages:AcknowledgeMessage",
+#                 "ec2messages:DeleteMessage",
+#                 "ec2messages:FailMessage",
+#                 "ec2messages:GetEndpoint",
+#                 "ec2messages:GetMessages",
+#                 "ec2messages:SendReply"
+#             ],
+#             "Resource": "*"
+#         },
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "cloudwatch:PutMetricData"
+#             ],
+#             "Resource": "*"
+#         },
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "ec2:DescribeInstanceStatus"
+#             ],
+#             "Resource": "*"
+#         },
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "ds:CreateComputer",
+#                 "ds:DescribeDirectories"
+#             ],
+#             "Resource": "*"
+#         },
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "logs:CreateLogGroup",
+#                 "logs:CreateLogStream",
+#                 "logs:DescribeLogGroups",
+#                 "logs:DescribeLogStreams",
+#                 "logs:PutLogEvents"
+#             ],
+#             "Resource": "*"
+#         },
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "s3:GetBucketLocation",
+#                 "s3:PutObject",
+#                 "s3:GetObject",
+#                 "s3:GetEncryptionConfiguration",
+#                 "s3:AbortMultipartUpload",
+#                 "s3:ListMultipartUploadParts",
+#                 "s3:ListBucket",
+#                 "s3:ListBucketMultipartUploads"
+#             ],
+#             "Resource": "*"
+#         },
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "cloudwatch:*",
+#                 "ec2:DescribeTags",
+#                 "logs:PutLogEvents",
+#                 "logs:DescribeLogStreams",
+#                 "logs:DescribeLogGroups",
+#                 "logs:CreateLogStream",
+#                 "logs:CreateLogGroup"
+#             ],
+#             "Resource": "*"
+#         },
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "ssm:GetParameter",
+#                 "ssm:PutParameter"
+#             ],
+#             "Resource": "arn:aws:ssm:*:*:parameter/AmazonCloudWatch-*"
+#         },
+#         {
+#             "Action": [
+#                 "s3:Get*",
+#                 "s3:List*"
+#             ],
+#             "Effect": "Allow",
+#             "Resource": "*"
+#         }
+#     ]
+# }
+# EOF
+# }
 
 
 
-resource "aws_iam_policy_attachment" "ec2_policy_attachment" {
-  name       = "ec2_policy_attachment"
+resource "aws_iam_policy_attachment" "cloudwatch_policy_attachment" {
+  name       = "cw_policy_attachment"
   roles      = [aws_iam_role.ec2_role.name]
-  policy_arn = aws_iam_policy.ec2_policy.arn
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchFullAccess"
 }
 
+resource "aws_iam_policy_attachment" "ssm_policy_attachment" {
+  name       = "ssm_policy_attachment"
+  roles      = [aws_iam_role.ec2_role.name]
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMFullAccess"
+}
 

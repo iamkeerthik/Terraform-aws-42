@@ -92,10 +92,17 @@ resource "aws_subnet" "private_subnet_2" {
 # EIP Gateway
 ###############################################################################
 
-resource "aws_eip" "nat_eip" {
+resource "aws_eip" "nat_eip-1a" {
   vpc = true
   tags = {
-    "Name" = "${var.name}-nat-eip"
+    "Name" = "${var.name}-nat-eip-1a"
+  }
+}
+
+resource "aws_eip" "nat_eip-1b" {
+  vpc = true
+  tags = {
+    "Name" = "${var.name}-nat-eip-1b"
   }
 }
 
@@ -103,15 +110,21 @@ resource "aws_eip" "nat_eip" {
 # NAT Gateway
 ###############################################################################
 
-resource "aws_nat_gateway" "nat_gateway" {
-  allocation_id = aws_eip.nat_eip.id
+resource "aws_nat_gateway" "nat_gateway-1a" {
+  allocation_id = aws_eip.nat_eip-1a.id
   subnet_id     = aws_subnet.public_subnet_1.id
   tags = {
-    "Name" = "${var.name}-nat"
+    "Name" = "${var.name}-nat-1a"
   }
 }
 
-
+resource "aws_nat_gateway" "nat_gateway-1b" {
+  allocation_id = aws_eip.nat_eip-1b.id
+  subnet_id     = aws_subnet.public_subnet_2.id
+  tags = {
+    "Name" = "${var.name}-nat-lb"
+  }
+}
 ################################################################################
 # Publiс routes
 ################################################################################
@@ -132,15 +145,15 @@ resource "aws_route" "public_internet_gateway_route" {
 # Private route table
 ################################################################################
 
-resource "aws_route_table" "private_route_table" {
+resource "aws_route_table" "private_route_table-1a" {
   vpc_id = aws_vpc.myVPC.id
 
   tags = {
-    Name = "${var.name}-private-rt"
+    Name = "${var.name}-private-rt-1a"
   }
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat_gateway.id
+    nat_gateway_id = aws_nat_gateway.nat_gateway-1a.id
   }
 
   route {
@@ -149,7 +162,22 @@ resource "aws_route_table" "private_route_table" {
   }
 }
 
+resource "aws_route_table" "private_route_table-1b" {
+  vpc_id = aws_vpc.myVPC.id
 
+  tags = {
+    Name = "${var.name}-private-rt-1b"
+  }
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat_gateway-1b.id
+  }
+
+  route {
+    ipv6_cidr_block        = "::/0"
+    egress_only_gateway_id = aws_egress_only_internet_gateway.EgressonlyIGW.id
+  }
+}
 ################################################################################
 # Route table association with subnets
 ################################################################################
@@ -164,10 +192,10 @@ resource "aws_route_table_association" "public_route_table_association_2" {
 }
 resource "aws_route_table_association" "private_route_table_association_1" {
   subnet_id      = aws_subnet.private_subnet_1.id
-  route_table_id = aws_route_table.private_route_table.id
+  route_table_id = aws_route_table.private_route_table-1a.id
 }
 resource "aws_route_table_association" "private_route_table_association_2" {
   subnet_id      = aws_subnet.private_subnet_2.id
-  route_table_id = aws_route_table.private_route_table.id
+  route_table_id = aws_route_table.private_route_table-1b.id
 }
 

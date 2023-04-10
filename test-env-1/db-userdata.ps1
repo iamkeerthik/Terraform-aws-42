@@ -3,6 +3,16 @@ Rename-Computer -NewName "db-server" -Force;
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls";
 $ProgressPreference = 'SilentlyContinue'
 
+# Install the CloudWatch agent
+Invoke-WebRequest -Uri "https://s3.amazonaws.com/amazoncloudwatch-agent/windows/amd64/latest/amazon-cloudwatch-agent.msi" -OutFile "C:\Windows\Temp\amazon-cloudwatch-agent.msi"
+Start-Process -FilePath "msiexec.exe" -ArgumentList "/i C:\Windows\Temp\amazon-cloudwatch-agent.msi /quiet" -Wait
+
+# Retrieve the CloudWatch agent configuration from AWS Systems Manager Parameter Store
+$parameterName = "AmazonCloudWatch-windows"
+Start-Service -Name "AmazonCloudWatchAgent"
+& "C:\Program Files\Amazon\AmazonCloudWatchAgent\amazon-cloudwatch-agent-ctl.ps1" -a fetch-config -m ec2 -c ssm:$parameterName -s
+
+
 $ssms_url = "https://aka.ms/ssmsfullsetup";
 $output = "C:\SSMS-Setup-ENU.exe";
 Invoke-WebRequest $ssms_url -OutFile $output;

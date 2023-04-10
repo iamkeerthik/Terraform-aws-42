@@ -30,6 +30,14 @@ sg_rules = [
     security_group = "Terraform-eks-sg"
     to_port        = 22
   },
+    {
+    description    = "ssh"
+    cidr_block     = "10.0.0.0/16"
+    from_port      = 22
+    protocol       = "tcp"
+    security_group = "Terraform-linux-helper-sg"
+    to_port        = 22
+  },
   {
     description    = "rdp"
     cidr_block     = "10.0.0.0/16"
@@ -68,13 +76,17 @@ sg_rules = [
 
 ###################_______EC2_____##############
 key_name                            = "keerthik"
-pluto_instance_type                 = "t2.micro"
-db_instance_type                    = "t2.micro"
+pluto_instance_type                 = "t3a.small"
+db_instance_type                    = "t3a.medium"
+linux_instance_type                 = "t2.micro"
 windows_associate_public_ip_address = false
+linux_associate_public_ip_address   = false
 pluto_root_volume_size              = 30
 db_root_volume_size                 = 65
+linux_root_volume_size              = 20
 pluto_root_volume_type              = "gp3"
 db_root_volume_type                 = "gp3"
+linux_root_volume_type              = "gp3"
 windows_data_volume_size            = 10
 windows_data_volume_type            = "gp3"
 termination_protection              = true
@@ -105,5 +117,5 @@ config_revision           = 1
 
 
 #####################Logs_bucket##################
-bucket_names    = ["app-logs", "api-logs"]
-bucket_prefix   = "keerthik980"
+bucket_names  = ["app-logs", "api-logs"]
+bucket_prefix = "keerthik980"

@@ -52,3 +52,10 @@ data "aws_security_group" "pluto_security_group" {
     values = ["${var.name}-pluto-sg"]
   }
 }
+data "aws_security_group" "linux_security_group" {
+  vpc_id = data.aws_vpc.vpc_available.id
+  filter {
+    name   = "tag:Name"
+    values = ["${var.name}-linux-helper-sg"]
+  }
+}
