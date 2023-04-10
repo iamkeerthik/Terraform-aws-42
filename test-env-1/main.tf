@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket  = "terraform-statefiles-keerthik"
-    key     = "dev-test-env/terraform.tfstate"
+    key     = "dev-test-env/infra-terraform.tfstate"
     region  = "ap-south-1"
     profile = "PS"
   }

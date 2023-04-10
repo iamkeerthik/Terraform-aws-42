@@ -25,6 +25,24 @@ $parameterName = "AmazonCloudWatch-windows"
 Start-Service -Name "AmazonCloudWatchAgent"
 & "C:\Program Files\Amazon\AmazonCloudWatchAgent\amazon-cloudwatch-agent-ctl.ps1" -a fetch-config -m ec2 -c ssm:$parameterName -s
 
+# Download the AWS CLI installer
+Invoke-WebRequest -Uri "https://awscli.amazonaws.com/AWSCLIV2.msi" -OutFile "$env:TEMP\AWSCLIV2.msi"
+
+# Install the AWS CLI
+Start-Process msiexec -ArgumentList "/i $env:TEMP\AWSCLIV2.msi /quiet" -Wait
+
+# Set the version of kubectl to install
+$kubectl_version = "v1.26.0"
+
+# Download the kubectl binary
+Invoke-WebRequest -Uri "https://dl.k8s.io/release/$($kubectl_version)/bin/windows/amd64/kubectl.exe" -OutFile "$env:ProgramFiles\kubectl.exe"
+
+# Add the kubectl binary to the PATH
+$env:Path += ";$env:ProgramFiles"
+
+# Test the installation
+kubectl version --client
+
 #Install Chrome 
 $Path = $env:TEMP;
 $Installer = "chrome_installer.exe";
