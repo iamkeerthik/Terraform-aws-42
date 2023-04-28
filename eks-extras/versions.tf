@@ -18,9 +18,11 @@ provider "http" {
   # Configuration options
 }
 
-# provider "helm" {
-
-# }
+provider "helm" {
+  kubernetes {
+    config_path = "C:/Users/keerthik.shenoy/.kube/config"
+  }
+}
 # provider "kubernetes" {
 #   host                   = data.terraform_remote_state.eks.outputs.cluster_endpoint
 #   cluster_ca_certificate = base64decode(data.terraform_remote_state.eks.outputs.cluster_ca_cert)
@@ -30,12 +32,6 @@ provider "http" {
 #     command     = "aws"
 #   }
 # }
-
-provider "helm" {
-  kubernetes {
-    config_path = "C:/Users/keerthik.shenoy/.kube/config"
-  }
-}
 
 provider "kubernetes" {
   config_path = "C:/Users/keerthik.shenoy/.kube/config"

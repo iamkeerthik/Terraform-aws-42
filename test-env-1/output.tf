@@ -47,65 +47,65 @@ output "DB_sg" {
 # output "db_machine_ip" {
 #   value = module.ec2.db_server_private_ip
 # }
-output "pluto_instance_id" {
-  value = module.ec2.pluto_instance_id
-}
-output "db_instance_id" {
-  value = module.ec2.db_instance_id
-}
-output "public_instance_id" {
-  value = module.ec2.public_instance_id
-}
-output "linux_instance_id" {
-  value = module.ec2.linux_instance_id
-}
+# output "pluto_instance_id" {
+#   value = module.ec2.pluto_instance_id
+# }
+# output "db_instance_id" {
+#   value = module.ec2.db_instance_id
+# }
+# output "public_instance_id" {
+#   value = module.ec2.public_instance_id
+# }
+# output "linux_instance_id" {
+#   value = module.ec2.linux_instance_id
+# }
 
-output "pluto_instance_type" {
-  value = module.ec2.pluto_instance_type
-}
-output "db_instance_type" {
-  value = module.ec2.db_instance_type
-}
-output "linux_instance_type" {
-  value = module.ec2.linux_instance_type
-}
-output "public_instance_type" {
-  value = module.ec2.public_instance_type
-}
+# output "pluto_instance_type" {
+#   value = module.ec2.pluto_instance_type
+# }
+# output "db_instance_type" {
+#   value = module.ec2.db_instance_type
+# }
+# output "linux_instance_type" {
+#   value = module.ec2.linux_instance_type
+# }
+# output "public_instance_type" {
+#   value = module.ec2.public_instance_type
+# }
 
-output "pluto_ami_id" {
-  value = module.ec2.pluto_ami_id
-}
-output "db_ami_id" {
-  value = module.ec2.db_ami_id
-}
-output "linux_ami_id" {
-  value = module.ec2.linux_ami_id
-}
-output "public_ami_id" {
-  value = module.ec2.public_ami_id
-}
+# output "pluto_ami_id" {
+#   value = module.ec2.pluto_ami_id
+# }
+# output "db_ami_id" {
+#   value = module.ec2.db_ami_id
+# }
+# output "linux_ami_id" {
+#   value = module.ec2.linux_ami_id
+# }
+# output "public_ami_id" {
+#   value = module.ec2.public_ami_id
+# }
 # # ##############EKS################
-# output "cluster_id" {
-#   value = module.eks.cluster_id
-# }
+output "cluster_id" {
+  value = module.eks.cluster_id
+}
 
-# output "eks_nodegroup_id" {
-#   value = module.eks.eks_nodegroup_id
-# }
+output "eks_nodegroup_id" {
+  value = module.eks.eks_nodegroup_id
+}
 
-# output "cluster_endpoint" {
-#   value = module.eks.cluster_endpoint
-# }
+output "cluster_endpoint" {
+  value = module.eks.cluster_endpoint
+}
 
-# output "cluster_ca_cert" {
-#   value = module.eks.cluster_ca_cert
-# }
+output "cluster_ca_cert" {
+  value = module.eks.cluster_ca_cert
+}
 
-# output "cluster_name" {
-#   value = module.eks.cluster_name
+output "cluster_name" {
+  value = module.eks.cluster_name
+}
+# ##############MSK######################
+# output "msk_cluster_id" {
+#   value = module.MSK.msk_cluter_id
 # }
-# # ##############MSK######################
-# # output "msk_cluster_id" {
-# #   value = module.MSK.msk_cluter_id
-# # }

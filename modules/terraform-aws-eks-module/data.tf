@@ -20,6 +20,8 @@ data "aws_vpc" "vpc_available" {
   }
 }
 
+
+
 data "aws_subnet" "subnet_1" {
   vpc_id            = data.aws_vpc.vpc_available.id
   availability_zone = data.aws_availability_zones.available_1.names[0]
@@ -73,7 +75,15 @@ data "aws_iam_role" "node_role" {
   name = var.node_role_name
 
 }
+data "aws_iam_role" "lbc_role" {
+  name = "AmazonEKSLoadBalancerControllerRoleTerraform"
+
+}
 
 data "aws_iam_policy" "lbcIAMPolicy" {
   name = "AWSLoadBalancerControllerIAMPolicy"
+}
+
+data "tls_certificate" "eks" {
+  url = aws_eks_cluster.suremdm-eks.identity.0.oidc.0.issuer
 }

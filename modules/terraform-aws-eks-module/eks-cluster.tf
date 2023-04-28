@@ -14,5 +14,8 @@ resource "aws_eks_cluster" "suremdm-eks" {
   tags = {
     Name = "${var.name}-eks-cluster"
   }
-
+ provisioner "local-exec" {
+    command = "aws eks update-kubeconfig --name ${aws_eks_cluster.suremdm-eks.name} --region ${var.region}"
+  }
 }
+

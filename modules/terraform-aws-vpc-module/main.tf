@@ -46,8 +46,10 @@ resource "aws_subnet" "public_subnet_1" {
   availability_zone       = data.aws_availability_zones.available_1.names[0]
   map_public_ip_on_launch = var.map_public_ip_on_launch
 
-  tags = {
+   tags = {
     Name = "${var.name}-public-subent-1a"
+    "kubernetes.io/role/elb" = "1"
+    "kubernetes.io/cluster/${var.name}-eks-cluster" = "shared"
   }
 }
 resource "aws_subnet" "public_subnet_2" {
@@ -57,8 +59,10 @@ resource "aws_subnet" "public_subnet_2" {
   availability_zone       = data.aws_availability_zones.available_1.names[1]
   map_public_ip_on_launch = var.map_public_ip_on_launch
 
-  tags = {
+   tags = {
     Name = "${var.name}-public-subent-1b"
+    "kubernetes.io/role/elb" = "1"
+    "kubernetes.io/cluster/${var.name}-eks-cluster" = "shared"
   }
 }
 
