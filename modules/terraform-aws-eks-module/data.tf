@@ -95,3 +95,7 @@ data "tls_certificate" "eks" {
 #   name = "AmazonEKS_EBS_CSI_DriverRole"
 
 # }
+
+data "aws_ami" "hardened_ami" {
+  name = ""
+}
