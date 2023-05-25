@@ -1,18 +1,18 @@
 
-resource "kubernetes_service_account" "service-account" {
-  metadata {
-    name = "aws-load-balancer-controller"
-    namespace = "kube-system"
-    labels = {
-        "app.kubernetes.io/name"= "aws-load-balancer-controller"
-        "app.kubernetes.io/component"= "controller"
-    }
-    annotations = {
-      "eks.amazonaws.com/role-arn" = data.aws_iam_role.lbc_role.arn
-      "eks.amazonaws.com/sts-regional-endpoints" = "true"
-    }
-  }
-}
+# resource "kubernetes_service_account" "service-account" {
+#   metadata {
+#     name = "aws-load-balancer-controller"
+#     namespace = "kube-system"
+#     labels = {
+#         "app.kubernetes.io/name"= "aws-load-balancer-controller"
+#         "app.kubernetes.io/component"= "controller"
+#     }
+#     annotations = {
+#       "eks.amazonaws.com/role-arn" = data.aws_iam_role.lbc_role.arn
+#       "eks.amazonaws.com/sts-regional-endpoints" = "true"
+#     }
+#   }
+# }
 
 resource "helm_release" "controller" {
   name       = "eks"
@@ -22,13 +22,6 @@ resource "helm_release" "controller" {
 
   # values = [
   #   file("${path.module}/values.yaml")
-  #   # {
-  #   # serviceAccount = {
-  #   # create = false
-  #   # name   = "aws-load-balancer-controller"
-  #   # }
-  #   # }
-    
   # ]
   
   set {
@@ -37,7 +30,7 @@ resource "helm_release" "controller" {
   }
   set {
   name  = "serviceAccount.create"
-  value = "false"
+  value = "true"
  }
 
 set {
@@ -49,7 +42,13 @@ set {
     name  = "replicaCount"
     value = "1"
   }
- depends_on = [
-   kubernetes_service_account.service-account
- ]
+
+  set {
+    name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = "${aws_iam_role.lbc_iam_role.arn}"
+  }
+
+#  depends_on = [
+#    kubernetes_service_account.service-account
+#  ]
 }

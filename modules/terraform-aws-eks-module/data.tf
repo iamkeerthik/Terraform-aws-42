@@ -75,15 +75,23 @@ data "aws_iam_role" "node_role" {
   name = var.node_role_name
 
 }
-data "aws_iam_role" "lbc_role" {
-  name = "AmazonEKSLoadBalancerControllerRoleTerraform"
+# data "aws_iam_role" "lbc_role" {
+#   name = "AmazonEKSLoadBalancerControllerRoleTerraform"
 
-}
+# }
 
-data "aws_iam_policy" "lbcIAMPolicy" {
-  name = "AWSLoadBalancerControllerIAMPolicy"
-}
+# data "aws_iam_policy" "lbcIAMPolicy" {
+#   name = "AWSLoadBalancerControllerIAMPolicy"
+# }
 
+# data "aws_iam_policy" "AmazonEBSCSIDriverPolicy" {
+#   name = "AmazonEBSCSIDriverPolicy"
+# }
 data "tls_certificate" "eks" {
   url = aws_eks_cluster.suremdm-eks.identity.0.oidc.0.issuer
 }
+
+# data "aws_iam_role" "csi_role" {
+#   name = "AmazonEKS_EBS_CSI_DriverRole"
+
+# }

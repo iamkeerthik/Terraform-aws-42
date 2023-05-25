@@ -93,14 +93,14 @@ termination_protection              = true
 ec2_role                            = "ec2_role"
 
 #################_______EKS_________##############
-asg_desired_size        = 1
-asg_max_size            = 1
+asg_desired_size        = 2
+asg_max_size            = 3
 asg_min_size            = 1
 launch_template_id      = "lt-03fbea4b65e2a13fe"
 launch_template_version = 2
 endpoint_private_access = true
 endpoint_public_access  = true
-eks_version             = "1.23"
+eks_version             = "1.24"
 eks_instance_type       = "t2.micro"
 cluster_role_name       = "suremdm-eks-cluster-role"
 node_role_name          = "eks-node-group-role"

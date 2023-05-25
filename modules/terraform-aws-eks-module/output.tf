@@ -17,3 +17,11 @@ output "cluster_ca_cert" {
 output "cluster_name" {
   value = aws_eks_cluster.suremdm-eks.name
 }
+
+output "aws_iam_openid_connect_provider_arn" {
+  value = aws_iam_openid_connect_provider.cluster.arn
+}
+
+output "aws_iam_openid_connect_provider_extract_from_arn" {
+  value = aws_iam_openid_connect_provider.cluster.arn
+}

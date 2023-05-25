@@ -72,12 +72,13 @@ module "eks" {
   region                  = var.region
 }
 
-module "extras" {
-  source = "../modules/eks-extras"
-  # depends_on = [
-  #   module.eks
-  # ]
-}
+# module "extras" {
+#   source = "../modules/eks-extras"
+#   region = var.region
+#   depends_on = [
+#     module.eks
+#   ]
+# }
 # module "MSK" {
 #   source = "../modules/terraform-aws-msk-module"
 #   depends_on = [
