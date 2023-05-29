@@ -96,6 +96,3 @@ data "tls_certificate" "eks" {
 
 # }
 
-data "aws_ami" "hardened_ami" {
-  name = ""
-}

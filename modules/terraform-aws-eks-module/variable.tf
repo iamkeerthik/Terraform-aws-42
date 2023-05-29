@@ -19,11 +19,25 @@ variable "asg_min_size" {
 
 }
 
-variable "launch_template_id" {
-  type = string
+variable "loki_desired_size" {
+  type = number
 }
 
-variable "launch_template_version" {
+variable "loki_max_size" {
+  type = number
+}
+
+variable "loki_min_size" {
+  type = number
+}
+# variable "launch_template_id" {
+#   type = string
+# }
+
+# variable "launch_template_version" {
+# }
+variable "key_name" {
+  type = string
 }
 
 variable "endpoint_private_access" {
@@ -49,5 +63,8 @@ variable "node_role_name" {
   type = string
 }
 variable "region" {
+  type = string
+}
+variable "image_id" {
   type = string
 }

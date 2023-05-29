@@ -113,6 +113,7 @@ output "aws_iam_openid_connect_provider_arn" {
 output "aws_iam_openid_connect_provider_extract_from_arn" {
   value = module.eks.aws_iam_openid_connect_provider_extract_from_arn
 }
+
 # ##############MSK######################
 # output "msk_cluster_id" {
 #   value = module.MSK.msk_cluter_id

@@ -167,13 +167,24 @@ variable "asg_min_size" {
   type = number
 }
 
-variable "launch_template_id" {
-  type = string
-}
-
-variable "launch_template_version" {
+variable "loki_desired_size" {
   type = number
 }
+
+variable "loki_max_size" {
+  type = number
+}
+
+variable "loki_min_size" {
+  type = number
+}
+# variable "launch_template_id" {
+#   type = string
+# }
+
+# variable "launch_template_version" {
+#   type = number
+# }
 
 variable "endpoint_private_access" {
   type = bool
@@ -201,6 +212,9 @@ variable "region" {
   type = string
 }
 
+variable "image_id" {
+  type = string
+}
 #############______MSK________#################
 
 variable "kafka_version" {

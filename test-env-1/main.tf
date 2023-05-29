@@ -61,8 +61,13 @@ module "eks" {
   asg_desired_size        = var.asg_desired_size
   asg_max_size            = var.asg_max_size
   asg_min_size            = var.asg_min_size
-  launch_template_id      = var.launch_template_id
-  launch_template_version = var.launch_template_version
+  loki_desired_size = var.loki_desired_size
+  loki_max_size = var.loki_max_size
+  loki_min_size = var.loki_min_size
+  key_name                = var.key_name
+  # launch_template_id      = var.launch_template_id
+  # launch_template_version = var.launch_template_version
+  image_id                =  var.image_id
   endpoint_private_access = var.endpoint_private_access
   endpoint_public_access  = var.endpoint_public_access
   eks_version             = var.eks_version
