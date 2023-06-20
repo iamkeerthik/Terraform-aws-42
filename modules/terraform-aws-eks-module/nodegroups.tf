@@ -39,7 +39,7 @@ resource "aws_eks_node_group" "loki-node-group" {
 
   tags = {
     Name        = "${var.name}-Loki-Nodegroup"
-    Environment = var.name
+    Environment = "${var.name}-loki"
   }
 
   scaling_config {

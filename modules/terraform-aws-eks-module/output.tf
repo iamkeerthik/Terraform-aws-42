@@ -22,6 +22,6 @@ output "aws_iam_openid_connect_provider_arn" {
   value = aws_iam_openid_connect_provider.cluster.arn
 }
 
-output "aws_iam_openid_connect_provider_extract_from_arn" {
-  value = aws_iam_openid_connect_provider.cluster.arn
+output "aws_iam_openid_connect_provider_url" {
+  value = aws_iam_openid_connect_provider.cluster.url
 }

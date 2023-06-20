@@ -26,6 +26,29 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSClusterPolicy" {
   role       = aws_iam_role.eks-cluster-role.name
 }
 
+resource "aws_iam_policy" "cluster_autoscaler" {
+    name   = "ca_policy"
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:DescribeAutoScalingInstances",
+                "autoscaling:DescribeLaunchConfigurations",
+                "autoscaling:DescribeTags",
+                "autoscaling:SetDesiredCapacity",
+                "autoscaling:TerminateInstanceInAutoScalingGroup",
+                "ec2:DescribeLaunchTemplateVersions"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+}
 #WORKER_NODE_ROLE
 resource "aws_iam_role" "workernode_role" {
   name = "eks-node-group-role"
@@ -63,6 +86,11 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
   role       = aws_iam_role.workernode_role.name
 }
 
+resource "aws_iam_role_policy_attachment" "cluster_autoscaler_policy" {
+  policy_arn = aws_iam_policy.cluster_autoscaler.arn
+  role       = aws_iam_role.workernode_role.name
+}
+
 
 # Create an IAM role for the MSK cluster
 resource "aws_iam_role" "msk_role" {
@@ -84,6 +112,7 @@ resource "aws_iam_role" "msk_role" {
 }
 EOF
 }
+
 
 # Attach an IAM policy to the role to give the MSK cluster access to the necessary resources
 resource "aws_iam_policy" "msk_policy" {

@@ -93,8 +93,8 @@ termination_protection              = true
 ec2_role                            = "ec2_role"
 
 #################_______EKS_________##############
-asg_desired_size        = 4
-asg_max_size            = 4
+asg_desired_size        = 2
+asg_max_size            = 3
 asg_min_size            = 1
 loki_desired_size       = 1
 loki_max_size           = 1

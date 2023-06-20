@@ -110,8 +110,8 @@ output "aws_iam_openid_connect_provider_arn" {
   value = module.eks.aws_iam_openid_connect_provider_arn
 }
 
-output "aws_iam_openid_connect_provider_extract_from_arn" {
-  value = module.eks.aws_iam_openid_connect_provider_extract_from_arn
+output "aws_iam_openid_connect_provider_url" {
+  value = module.eks.aws_iam_openid_connect_provider_url
 }
 
 # ##############MSK######################

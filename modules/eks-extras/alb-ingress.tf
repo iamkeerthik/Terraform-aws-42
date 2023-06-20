@@ -1,18 +1,19 @@
 
-# resource "kubernetes_service_account" "service-account" {
-#   metadata {
-#     name = "aws-load-balancer-controller"
-#     namespace = "kube-system"
-#     labels = {
-#         "app.kubernetes.io/name"= "aws-load-balancer-controller"
-#         "app.kubernetes.io/component"= "controller"
-#     }
-#     annotations = {
-#       "eks.amazonaws.com/role-arn" = data.aws_iam_role.lbc_role.arn
-#       "eks.amazonaws.com/sts-regional-endpoints" = "true"
-#     }
-#   }
-# }
+resource "kubernetes_service_account" "alb-service-account" {
+  metadata {
+    name = "aws-load-balancer-controller"
+    namespace = "kube-system"
+    labels = {
+        "app.kubernetes.io/name"= "aws-load-balancer-controller"
+        "app.kubernetes.io/component"= "controller"
+    }
+    annotations = {
+      "eks.amazonaws.com/role-arn" = aws_iam_role.lbc_iam_role.arn
+      "eks.amazonaws.com/sts-regional-endpoints" = "true"
+      "eks.amazonaws.com/token-support.kubernetes.io" = "true"
+    }
+  }
+}
 
 resource "helm_release" "controller" {
   name       = "eks"
@@ -30,7 +31,7 @@ resource "helm_release" "controller" {
   }
   set {
   name  = "serviceAccount.create"
-  value = "true"
+  value = "false"
  }
 
 set {
@@ -43,12 +44,12 @@ set {
     value = "1"
   }
 
-  set {
-    name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = "${aws_iam_role.lbc_iam_role.arn}"
-  }
+  # set {
+  #   name  = "controller.serviceAccount.annotations.eks.amazonaws.com/role-arn"
+  #   value = "${aws_iam_role.lbc_iam_role.arn}"
+  # }
 
-#  depends_on = [
-#    kubernetes_service_account.service-account
-#  ]
+ depends_on = [
+   kubernetes_service_account.alb-service-account
+ ]
 }

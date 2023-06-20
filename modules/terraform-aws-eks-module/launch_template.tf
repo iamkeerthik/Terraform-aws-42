@@ -16,10 +16,9 @@ resource "aws_launch_template" "eks_launch_template" {
 
 #   vpc_security_group_ids = [module.private_sg.security_group_id]
   key_name = var.key_name
-#   user_data = filebase64("${path.module}/app1-install.sh")
 user_data = base64encode(data.template_file.user_data.rendered)
 #   ebs_optimized = true
-  #default_version = 1
+default_version = 1
 #   update_default_version = true
 #   block_device_mappings {
 #     device_name = "/dev/sda1"
@@ -56,7 +55,7 @@ resource "aws_launch_template" "loki_launch_template" {
 #   user_data = filebase64("${path.module}/app1-install.sh")
 user_data = base64encode(data.template_file.user_data.rendered)
 #   ebs_optimized = true
-  #default_version = 1
+default_version = 1
 #   update_default_version = true
 #   block_device_mappings {
 #     device_name = "/dev/sda1"

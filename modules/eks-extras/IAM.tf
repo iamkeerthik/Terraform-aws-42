@@ -26,7 +26,8 @@ resource "aws_iam_role" "ebs_csi_iam_role" {
         }
         Condition = {
           StringEquals = {            
-            "${data.terraform_remote_state.eks.outputs.aws_iam_openid_connect_provider_extract_from_arn}:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+            "${data.terraform_remote_state.eks.outputs.aws_iam_openid_connect_provider_url}:sub": "system:serviceaccount:kube-system:aws-csi-driver"
+
           }
         }        
 
@@ -67,7 +68,7 @@ resource "aws_iam_role" "lbc_iam_role" {
         }
         Condition = {
           StringEquals = {            
-            "${data.terraform_remote_state.eks.outputs.aws_iam_openid_connect_provider_extract_from_arn}:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+            "${data.terraform_remote_state.eks.outputs.aws_iam_openid_connect_provider_url}:sub": "system:serviceaccount:kube-system:aws-load-balancer-controller"
           }
         }        
 
@@ -83,7 +84,7 @@ resource "aws_iam_role" "lbc_iam_role" {
 # Associate EBS CSI IAM Policy to EBS CSI IAM Role
 resource "aws_iam_role_policy_attachment" "lbc_role_policy_attach" {
   policy_arn = data.aws_iam_policy.lbcPolicy.arn
-  role       = aws_iam_role.ebs_csi_iam_role.name
+  role       = aws_iam_role.lbc_iam_role.name
 }
 
 # output "ebs_csi_iam_role_arn" {

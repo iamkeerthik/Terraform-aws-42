@@ -35,4 +35,5 @@ provider "helm" {
 
 provider "kubernetes" {
   config_path = "C:/Users/keerthik.shenoy/.kube/config"
+  
 }
